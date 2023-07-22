@@ -28,14 +28,7 @@ export const TwoChildren: StoryObj<RadialMenuProps> = {
   args: {
     innerRadius: 50,
     outerRadius: 200,
-    children: [
-      <div>
-        <img src="https://www.svgrepo.com/show/530257/figure.svg" width={50} height={50} alt="figure" />
-      </div>,
-      <div>
-        <img src="https://www.svgrepo.com/show/530257/figure.svg" width={50} height={50} alt="figure" />
-      </div>,
-    ],
+    children: generateChildren(2),
   },
 };
 
@@ -44,29 +37,55 @@ export const ThreeChildren: StoryObj<RadialMenuProps> = {
   args: {
     innerRadius: 50,
     outerRadius: 100,
-    children: [
-      <div style={{ padding: "5px 10px", background: "rgba(255, 255, 255, 0.8)" }}>item01</div>,
-      <div style={{ padding: "5px 10px", background: "rgba(255, 255, 255, 0.8)" }}>item02</div>,
-      <div style={{ padding: "5px 10px", background: "rgba(255, 255, 255, 0.8)" }}>item03</div>,
-    ],
+    children: generateChildren(3),
   },
 };
 
-export const MultipleChildren: StoryObj<RadialMenuProps> = {
+export const FourChildren: StoryObj<RadialMenuProps> = {
   decorators,
   args: {
     innerRadius: 50,
     outerRadius: 100,
-    children: (function () {
-      const result = [];
-      for (let i = 0; i < 10; i++) {
-        result.push(
-          <div>
-            <img src="https://www.svgrepo.com/show/530257/figure.svg" width={25} height={25} alt="figure" />
-          </div>
-        );
-      }
-      return result;
-    })(),
+    children: generateChildren(4),
   },
 };
+
+export const TenChildren: StoryObj<RadialMenuProps> = {
+  decorators,
+  args: {
+    innerRadius: 50,
+    outerRadius: 100,
+    children: generateChildren(10),
+  },
+};
+
+export const TwentyChildren: StoryObj<RadialMenuProps> = {
+  decorators,
+  args: {
+    innerRadius: 75,
+    outerRadius: 150,
+    children: generateChildren(20),
+  },
+};
+
+function generateChildren(limit: number) {
+  const result = [];
+  for (let i = 0; i < limit; i++) {
+    result.push(
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <img src="https://www.svgrepo.com/show/530257/figure.svg" width={25} height={25} alt="figure" />
+        <div style={{ fontSize: "0.5rem" }}>Child {i}</div>
+      </div>
+    );
+  }
+  return result;
+}
