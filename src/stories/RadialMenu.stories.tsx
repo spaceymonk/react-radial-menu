@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import RadialMenu, { RadialMenuProps } from "./RadialMenu";
+import RadialMenu from "../components/RadialMenu";
 
 import "./RadialMenu.stories.css";
 
