@@ -59,8 +59,8 @@ const RadilaMenuDisplay = ({ position, innerRadius, outerRadius, ...props }: Rad
   return (
     <>
       <path
-        fill="#e0e0e077"
-        stroke="#a0a0a0"
+        fill="#0f172a"
+        stroke="#fff"
         className="react-radial-menu__display-path"
         d={`
             M 

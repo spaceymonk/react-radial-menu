@@ -14,4 +14,6 @@
   text-align: center;
   flex-direction: column;
   pointer-events: none;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
 }

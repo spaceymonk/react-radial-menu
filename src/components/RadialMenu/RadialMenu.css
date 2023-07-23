@@ -6,5 +6,5 @@
 
 .top-display:hover,
 .bottom-display:hover {
-  filter: contrast(0.75);
+  filter: contrast(0.50);
 }

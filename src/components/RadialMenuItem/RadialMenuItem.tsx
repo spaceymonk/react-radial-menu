@@ -2,19 +2,25 @@ import React from "react";
 
 import "./RadialMenuItem.css";
 
-export interface RadialMenuItemProps {
+export interface RadialMenuItemEssentialProps {
   index: number;
   angleStep: number;
   innerRadius: number;
   outerRadius: number;
-  children: React.ReactNode;
   objectWidth: number;
   objectHeight: number;
   objectX: number;
   objectY: number;
+}
+
+export interface RadialMenuItemCustomProps {
+  children?: React.ReactNode;
   interactive?: boolean;
   menuItemStyle?: React.SVGAttributes<SVGPathElement>;
+  onClick?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
 }
+
+export type RadialMenuItemProps = RadialMenuItemEssentialProps & RadialMenuItemCustomProps;
 
 const RadialMenuItem = ({
   index,
@@ -30,9 +36,10 @@ const RadialMenuItem = ({
   return (
     <>
       <path
-        fill={"#c0c0c077"}
-        stroke={"#a0a0a0"}
+        fill="url(#gradient)"
+        stroke="#ffffff"
         {...props.menuItemStyle}
+        onClick={props.onClick}
         className={`react-radial-menu__menu-item-path
          ${props.interactive && "react-radial-menu__menu-item-path--interactive"}`}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}

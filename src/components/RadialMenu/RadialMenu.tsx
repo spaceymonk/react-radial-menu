@@ -1,26 +1,33 @@
 import React from "react";
 import RadialMenuDisplay from "../RadialMenuDisplay/RadialMenuDisplay";
 import RadialMenuItem from "../RadialMenuItem";
+import { RadialMenuItemCustomProps, RadialMenuItemProps } from "../RadialMenuItem/RadialMenuItem";
 
-import { RadialMenuItemProps } from "../RadialMenuItem/RadialMenuItem";
 import "./RadialMenu.css";
 
-export interface RadialMenuProps {
-  outerRadius: number;
+export interface RadialMenuEssentialProps {
   innerRadius: number;
+  outerRadius: number;
+  children: React.ReactNode;
+}
 
+export interface RadialMenuCustomProps {
   drawBaseRing?: boolean;
   baseRingStyle?: React.SVGAttributes<SVGPathElement>;
 
-  menuItemProps?: RadialMenuItemProps;
+  menuItemProps?: RadialMenuItemCustomProps;
 
   topDisplay?: React.ReactNode;
   bottomDisplay?: React.ReactNode;
   leftDisplay?: React.ReactNode;
   rightDisplay?: React.ReactNode;
 
-  children: React.ReactNode;
+  onItemClicked?: (event: React.MouseEvent<SVGPathElement, MouseEvent>, index: number) => void;
 }
+
+export type RadialMenuProps = RadialMenuEssentialProps & RadialMenuCustomProps;
+
+const padding = 2;
 
 const RadialMenu = ({ innerRadius, outerRadius, ...props }: RadialMenuProps) => {
   const numChildren = React.Children.count(props.children);
@@ -34,7 +41,18 @@ const RadialMenu = ({ innerRadius, outerRadius, ...props }: RadialMenuProps) => 
   const objectHeight = objectWidth;
 
   return (
-    <svg width="100%" height="100%" viewBox={`0 0 ${outerRadius * 2} ${outerRadius * 2}`}>
+    <svg
+      width="100%"
+      height="100%"
+      viewBox={`${-padding / 2} ${-padding / 2} ${outerRadius * 2 + padding} ${outerRadius * 2 + padding}`}
+    >
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="50%" stop-color="#0d354b" />
+          <stop offset="95%" stop-color="#0b1727" />
+        </linearGradient>
+      </defs>
+
       {props.drawBaseRing && (
         <path
           {...props.baseRingStyle}
@@ -69,6 +87,7 @@ const RadialMenu = ({ innerRadius, outerRadius, ...props }: RadialMenuProps) => 
             objectHeight={objectHeight}
             innerRadius={innerRadius}
             outerRadius={outerRadius}
+            onClick={(event) => props.onItemClicked?.(event, index)}
           >
             {child}
           </RadialMenuItem>

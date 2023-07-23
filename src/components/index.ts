@@ -1,2 +1,1 @@
-export { default as RadialMenu } from "./RadialMenu";
-export { default as RadialMenuItem } from "./RadialMenuItem";
+export { default as RadialMenuProvider } from "./RadialMenuProvider";

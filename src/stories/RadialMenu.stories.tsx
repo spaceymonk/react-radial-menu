@@ -1,8 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import RadialMenu from "../components/RadialMenu";
+import { generateChildren } from "./RadialMenu.util";
 
 import "./RadialMenu.stories.css";
+import { RadialMenuProps } from "../components/RadialMenu/RadialMenu";
 
 export default {
   title: "ReactComponentLibrary/RadialMenu",
@@ -17,58 +19,48 @@ const decorators = [
   ),
 ];
 
-const ChildrenTemplate: StoryObj<any> = {
-  render: ({ itemCount, outerRadius, innerRadius }: any) => {
+export const ChildrenExample: StoryObj<RadialMenuProps & { itemCount: number }> = {
+  render: ({ itemCount, outerRadius, innerRadius, ...args }: RadialMenuProps & { itemCount: number }) => {
     return (
-      <RadialMenu outerRadius={outerRadius} innerRadius={innerRadius}>
+      <RadialMenu {...args} outerRadius={outerRadius} innerRadius={innerRadius}>
         {generateChildren(itemCount)}
       </RadialMenu>
     );
   },
-};
-
-function generateChildren(limit: number) {
-  limit = Math.max(limit, 2);
-  const result = [];
-  for (let i = 0; i < limit; i++) {
-    result.push(
-      <div
-        key={i}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <img src="https://www.svgrepo.com/show/530257/figure.svg" width={25} height={25} alt="figure" />
-        <div style={{ fontSize: "0.5rem" }}>Child {i}</div>
-      </div>
-    );
-  }
-  return result;
-}
-
-export const ChildrenExample: StoryObj<any> = {
-  ...ChildrenTemplate,
   decorators,
   args: {
     itemCount: 4,
     outerRadius: 100,
     innerRadius: 50,
-    bottomDisplay: <div>Bottom Content</div>,
-    leftDisplay: <div>Left Content</div>,
-    rightDisplay: <div>Right Content</div>,
-    topDisplay: <div>Top Content</div>,
+    menuItemProps: { interactive: true },
   },
 };
 
-const DisplayTemplate: StoryObj<any> = {
-  render: ({ drawBottomDisplay, drawLeftDisplay, drawRightDisplay, drawTopDisplay, outerRadius, innerRadius }: any) => {
+export const DisplayExample: StoryObj<
+  RadialMenuProps & {
+    drawBottomDisplay: boolean;
+    drawLeftDisplay: boolean;
+    drawRightDisplay: boolean;
+    drawTopDisplay: boolean;
+  }
+> = {
+  render: ({
+    drawBottomDisplay,
+    drawLeftDisplay,
+    drawRightDisplay,
+    drawTopDisplay,
+    outerRadius,
+    innerRadius,
+    ...args
+  }: RadialMenuProps & {
+    drawBottomDisplay: boolean;
+    drawLeftDisplay: boolean;
+    drawRightDisplay: boolean;
+    drawTopDisplay: boolean;
+  }) => {
     return (
       <RadialMenu
+        {...args}
         outerRadius={outerRadius}
         innerRadius={innerRadius}
         bottomDisplay={drawBottomDisplay && <div className="display-items bottom">Bottom Content</div>}
@@ -80,10 +72,6 @@ const DisplayTemplate: StoryObj<any> = {
       </RadialMenu>
     );
   },
-};
-
-export const DisplayExample: StoryObj<any> = {
-  ...DisplayTemplate,
   decorators,
   args: {
     drawBottomDisplay: false,
@@ -92,5 +80,6 @@ export const DisplayExample: StoryObj<any> = {
     drawTopDisplay: false,
     outerRadius: 100,
     innerRadius: 50,
+    menuItemProps: { interactive: true },
   },
 };
