@@ -1,0 +1,29 @@
+.display-items {
+  font-size: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.display-items.left {
+  text-orientation: upright;
+  writing-mode: vertical-lr;
+  align-items: flex-end;
+}
+
+.display-items.right {
+  text-orientation: upright;
+  writing-mode: vertical-rl;
+  align-items: flex-end;
+}
+
+.display-items.top {
+  align-items: flex-end;
+}
+
+.display-items.bottom {
+  align-items: flex-start;
+}

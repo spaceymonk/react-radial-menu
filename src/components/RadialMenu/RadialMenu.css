@@ -1,18 +1,10 @@
-
-.section {
+.top-display,
+.bottom-display {
   transition: all 150ms ease-in-out;
-}
-
-.section:hover {
-  filter: contrast(0.75);
   cursor: pointer;
 }
 
-.section-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  pointer-events: none;
+.top-display:hover,
+.bottom-display:hover {
+  filter: contrast(0.75);
 }
