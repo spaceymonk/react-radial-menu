@@ -1,0 +1,23 @@
+.container-bg {
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+  }
+  
+  .container {
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    pointer-events: none;
+    font-family: "Roboto", sans-serif;
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .container-bg:hover {
+    filter: contrast(0.5);
+  }
