@@ -2,6 +2,7 @@ import React from "react";
 import { MAIN_MENU_ID } from "./Menu";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { getRingSectionPath } from "./util";
+import clsx from 'clsx';
 
 export interface MenuItemProps {
   __index?: number;
@@ -23,11 +24,13 @@ const MenuItem = ({ __index, __angleStep, ...props }: MenuItemProps) => {
   const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
   const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
 
+  const [active, setActive] = React.useState(false);
+
   return props.__parentMenuId === activeMenuId ? (
     <>
       <path
-        fill="lightgrey"
-        stroke="grey"
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -40,7 +43,7 @@ const MenuItem = ({ __index, __angleStep, ...props }: MenuItemProps) => {
         className="container-bg"
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="container">
-        {props.children}
+        <div className={clsx("item", {active})}>{props.children}</div>
       </foreignObject>
     </>
   ) : (

@@ -1,5 +1,6 @@
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
+import clsx from "clsx";
 
 export type DisplayPosition = "top" | "right" | "bottom" | "left" | "center";
 
@@ -14,6 +15,77 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
   const { data } = React.useContext(MenuContext) as MenuContextType;
   const { innerRadius, outerRadius, activeMenuId } = data;
 
+  let { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight } = calculatePositions(
+    position,
+    innerRadius,
+    outerRadius
+  );
+
+  const [active, setActive] = React.useState(false);
+
+  return props.__parentMenuId === activeMenuId ? (
+    <>
+      {position !== "center" ? (
+        <path
+          d={`
+              M 
+                ${Math.cos(startAngle) * innerRadius + outerRadius}
+                ${Math.sin(startAngle) * innerRadius + outerRadius}
+              
+              A ${innerRadius} ${innerRadius} 0 0 1 
+                ${Math.cos(endAngle) * innerRadius + outerRadius}
+                ${Math.sin(endAngle) * innerRadius + outerRadius}
+                
+              Z
+            `}
+          onMouseEnter={() => setActive(true)}
+          onMouseLeave={() => setActive(false)}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            props.onClick(event, position);
+          }}
+          className="container-bg"
+        />
+      ) : (
+        <circle
+          cx={outerRadius}
+          cy={outerRadius}
+          r={innerRadius}
+          onMouseEnter={() => setActive(true)}
+          onMouseLeave={() => setActive(false)}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            props.onClick(event, position);
+          }}
+          className="container-bg"
+        />
+      )}
+      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="container">
+        <div className={clsx("display", { active })}>
+          {props.children ? (
+            props.children
+          ) : (
+            <svg width={`${objectWidth*.5}px`} height={`${objectHeight*.5}px`} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path strokeWidth={4} d="M12.9998 8L6 14L12.9998 21" className={clsx("arrow", { active })} />
+              <path
+                strokeWidth={4}
+                d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984"
+                className={clsx("arrow", { active })}
+              />
+            </svg>
+          )}
+        </div>
+      </foreignObject>
+    </>
+  ) : (
+    <></>
+  );
+};
+
+export default MenuDisplay;
+function calculatePositions(position: string, innerRadius: number, outerRadius: number) {
   let startAngle: number = 0;
   let endAngle: number = 0;
   let objectHeight: number = 0;
@@ -63,53 +135,5 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
     default:
       throw new Error(`Invalid position: ${position}`);
   }
-
-  return props.__parentMenuId === activeMenuId ? (
-    <>
-      {position !== "center" ? (
-        <path
-          fill="lightgrey"
-          stroke="grey"
-          d={`
-              M 
-                ${Math.cos(startAngle) * innerRadius + outerRadius}
-                ${Math.sin(startAngle) * innerRadius + outerRadius}
-              
-              A ${innerRadius} ${innerRadius} 0 0 1 
-                ${Math.cos(endAngle) * innerRadius + outerRadius}
-                ${Math.sin(endAngle) * innerRadius + outerRadius}
-                
-              Z
-            `}
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            props.onClick(event, position);
-          }}
-          className="container-bg"
-        />
-      ) : (
-        <circle
-          fill="lightgrey"
-          stroke="grey"
-          cx={outerRadius}
-          cy={outerRadius}
-          r={innerRadius}
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            props.onClick(event, position);
-          }}
-          className="container-bg"
-        />
-      )}
-      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="container">
-        {props.children}
-      </foreignObject>
-    </>
-  ) : (
-    <></>
-  );
-};
-
-export default MenuDisplay;
+  return { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight };
+}

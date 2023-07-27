@@ -51,25 +51,25 @@ const Renderer = (args: MenuProps & { childrenCount: number; size: number; fontS
         }}
       >
         <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y}>
-          <MenuItem onItemClicked={handleItemClick}>Item 0-0</MenuItem>
-          <MenuItem onItemClicked={handleItemClick}>Item 0-1</MenuItem>
-          <SubMenu displayPosition="bottom" sectionView={"Submenu 2"}>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-2-0</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-2-1</MenuItem>
+          <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+          <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
+          <SubMenu displayPosition="bottom" sectionView={"S1"} displayView={"Back"}>
+            <MenuItem onItemClicked={handleItemClick}>2</MenuItem>
+            <MenuItem onItemClicked={handleItemClick}>3</MenuItem>
           </SubMenu>
-          <MenuItem onItemClicked={handleItemClick}>Item 0-3</MenuItem>
-          <SubMenu displayPosition="top" sectionView={"Submenu 4"}>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-4-0</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-4-1</MenuItem>
-            <SubMenu displayPosition="center" sectionView={"Submenu 4-2"}>
-              <MenuItem onItemClicked={handleItemClick}>Hello 0</MenuItem>
-              <MenuItem onItemClicked={handleItemClick}>Hello 1</MenuItem>
+          <MenuItem onItemClicked={handleItemClick}>4</MenuItem>
+          <SubMenu displayPosition="top" sectionView={"S2"}>
+            <MenuItem onItemClicked={handleItemClick}>5</MenuItem>
+            <MenuItem onItemClicked={handleItemClick}>6</MenuItem>
+            <SubMenu displayPosition="center" sectionView={"S3"}>
+              <MenuItem onItemClicked={handleItemClick}>7</MenuItem>
+              <MenuItem onItemClicked={handleItemClick}>8</MenuItem>
             </SubMenu>
           </SubMenu>
-          <MenuItem onItemClicked={handleItemClick}>Item 0-5</MenuItem>
-          <SubMenu displayPosition="left" sectionView={"Submenu 2"}>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-2-0</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>Item 0-2-1</MenuItem>
+          <MenuItem onItemClicked={handleItemClick}>11</MenuItem>
+          <SubMenu displayPosition="left" sectionView={"S4"}>
+            <MenuItem onItemClicked={handleItemClick}>9</MenuItem>
+            <MenuItem onItemClicked={handleItemClick}>10</MenuItem>
           </SubMenu>
         </Menu>
         <div>

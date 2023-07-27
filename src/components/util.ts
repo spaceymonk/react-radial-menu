@@ -28,9 +28,14 @@ export function getRingSectionPath(
           `;
 }
 
-export function getArrowPoints(angle: number, outerRadius: number): string {
-  //FIXME:
-  const transformX = outerRadius + Math.cos(angle + angle / 4) * outerRadius;
-  const transformY = outerRadius + Math.sin(angle + angle / 4) * outerRadius;
-  return `${transformX} ${transformY}, ${transformX + 6} ${transformY + 6}, ${transformX} ${transformY + 12}`;
+export function getArrowPoints(startAngle: number, endAngle: number, outerRadius: number): string {
+  const outR = outerRadius * 0.98;
+  const inR = outerRadius * 0.95;
+  const pivotX = outR * Math.cos((startAngle + endAngle) / 2) + outerRadius;
+  const pivotY = outR * Math.sin((startAngle + endAngle) / 2) + outerRadius;
+  const x1 = inR * Math.cos((startAngle + endAngle) / 2 + Math.PI / 60) + outerRadius;
+  const y1 = inR * Math.sin((startAngle + endAngle) / 2 + Math.PI / 60) + outerRadius;
+  const x2 = inR * Math.cos((startAngle + endAngle) / 2 - Math.PI / 60) + outerRadius;
+  const y2 = inR * Math.sin((startAngle + endAngle) / 2 - Math.PI / 60) + outerRadius;
+  return `${x1},${y1} ${pivotX},${pivotY} ${x2},${y2}`;
 }

@@ -48,13 +48,14 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
     <svg
       width={menuWidth}
       height={menuHeight}
-      viewBox={`0 0 ${menuWidth} ${menuHeight}`}
+      viewBox={`-5 -5 ${menuWidth + 5} ${menuHeight + 5}`}
       style={{
         width: `${menuWidth}px`,
         height: `${menuHeight}px`,
         left: `${centerX - outerRadius}px`,
         top: `${centerY - outerRadius}px`,
         position: "absolute",
+        zIndex: "var(--zIndex)",
       }}
     >
       {React.Children.map(rest.children, (child, index) => {
