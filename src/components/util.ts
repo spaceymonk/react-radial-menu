@@ -39,3 +39,56 @@ export function getArrowPoints(startAngle: number, endAngle: number, outerRadius
   const y2 = inR * Math.sin((startAngle + endAngle) / 2 - Math.PI / 60) + outerRadius;
   return `${x1},${y1} ${pivotX},${pivotY} ${x2},${y2}`;
 }
+
+export function calculatePositions(position: string, innerRadius: number, outerRadius: number) {
+  let startAngle = 0;
+  let endAngle = 0;
+  let objectHeight = 0;
+  let objectWidth = 0;
+  let objectX = 0;
+  let objectY = 0;
+
+  switch (position) {
+    case "top":
+      startAngle = Math.PI / 6 + Math.PI;
+      endAngle = (5 * Math.PI) / 6 + Math.PI;
+      objectHeight = innerRadius / 2;
+      objectY = Math.sin(startAngle) * innerRadius + outerRadius - objectHeight;
+      objectX = Math.cos(startAngle) * innerRadius + outerRadius;
+      objectWidth = Math.cos(endAngle) * innerRadius + outerRadius - objectX;
+      break;
+    case "bottom":
+      startAngle = Math.PI / 6;
+      endAngle = (5 * Math.PI) / 6;
+      objectHeight = innerRadius / 2;
+      objectY = Math.sin(endAngle) * innerRadius + outerRadius;
+      objectX = Math.cos(endAngle) * innerRadius + outerRadius;
+      objectWidth = Math.cos(startAngle) * innerRadius + outerRadius - objectX;
+      break;
+    case "left":
+      startAngle = (4 * Math.PI) / 6;
+      endAngle = (8 * Math.PI) / 6;
+      objectWidth = innerRadius / 2;
+      objectX = Math.cos(endAngle) * innerRadius + outerRadius - objectWidth;
+      objectY = Math.sin(endAngle) * innerRadius + outerRadius;
+      objectHeight = Math.sin(startAngle) * innerRadius + outerRadius - objectY;
+      break;
+    case "right":
+      startAngle = (10 * Math.PI) / 6;
+      endAngle = (2 * Math.PI) / 6;
+      objectWidth = innerRadius / 2;
+      objectX = Math.cos(startAngle) * innerRadius + outerRadius;
+      objectY = Math.sin(startAngle) * innerRadius + outerRadius;
+      objectHeight = Math.sin(endAngle) * innerRadius + outerRadius - objectY;
+      break;
+    case "center":
+      objectX = outerRadius - innerRadius;
+      objectY = objectX;
+      objectWidth = objectX + innerRadius;
+      objectHeight = objectY + innerRadius;
+      break;
+    default:
+      throw new Error(`Invalid position: ${position}`);
+  }
+  return { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight };
+}

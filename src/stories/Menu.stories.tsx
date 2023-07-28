@@ -1,12 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import Menu, { MenuProps } from "../components/Menu";
+import Menu from "../components/Menu";
 import MenuProvider from "../components/MenuContext";
 import MenuItem from "../components/MenuItem";
-import SubMenu from "../components/SubMenu";
+import SubMenu from "../components/SubMenu/SubMenu";
+import { MenuProps } from "../components/types";
 
 export default {
-  title: "ReactComponentLibrary/Menu",
+  title: "Menu",
   component: Menu,
 } as Meta<typeof Menu>;
 
