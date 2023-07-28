@@ -12,7 +12,16 @@
     "build-storybook": "storybook build"
   },
   "keywords": [
-    "radial-menu"
+    "radial-menu",
+    "context-menu",
+    "react",
+    "react-component",
+    "react-radial-menu",
+    "react-context-menu",
+    "react-radial-context-menu",
+    "circular-menu",
+    "react-circular-menu",
+    "react-circular-context-menu"
   ],
   "author": "Berktug K. Ozkan",
   "license": "MIT",
@@ -34,6 +43,7 @@
     "@storybook/react-webpack5": "^7.1.0",
     "@storybook/testing-library": "^0.2.0",
     "@types/react": "^18.2.15",
+    "clsx": "^2.0.0",
     "css-loader": "^6.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
