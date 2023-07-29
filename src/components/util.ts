@@ -84,8 +84,8 @@ export function calculatePositions(position: string, innerRadius: number, outerR
     case "center":
       objectX = outerRadius - innerRadius;
       objectY = objectX;
-      objectWidth = objectX + innerRadius;
-      objectHeight = objectY + innerRadius;
+      objectWidth = innerRadius * 2;
+      objectHeight = objectWidth;
       break;
     default:
       throw new Error(`Invalid position: ${position}`);

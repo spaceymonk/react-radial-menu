@@ -9,10 +9,9 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
   const { innerRadius, outerRadius, activeMenuId } = data;
   const [active, setActive] = React.useState(false);
 
-  let { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight } = calculatePositions(
-    position,
-    innerRadius,
-    outerRadius
+  let { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight } = React.useMemo(
+    () => calculatePositions(position, innerRadius, outerRadius),
+    [position, innerRadius, outerRadius]
   );
 
   if (props.__parentMenuId !== activeMenuId) {
@@ -22,17 +21,13 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
     <>
       {position !== "center" ? (
         <path
-          d={`
-              M 
+          d={`M 
                 ${Math.cos(startAngle) * innerRadius + outerRadius}
                 ${Math.sin(startAngle) * innerRadius + outerRadius}
-              
               A ${innerRadius} ${innerRadius} 0 0 1 
                 ${Math.cos(endAngle) * innerRadius + outerRadius}
                 ${Math.sin(endAngle) * innerRadius + outerRadius}
-                
-              Z
-            `}
+              Z`}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
           onClick={(event) => {
@@ -62,13 +57,7 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
           {props.children ? (
             props.children
           ) : (
-            <svg
-              width={`${objectWidth * 0.5}px`}
-              height={`${objectHeight * 0.5}px`}
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width={`${objectWidth * 0.5}px`} height={`${objectHeight * 0.5}px`} viewBox="0 0 48 48">
               <path d="M12.9998 8L6 14L12.9998 21" className={clsx("return", { active })} />
               <path
                 d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984"

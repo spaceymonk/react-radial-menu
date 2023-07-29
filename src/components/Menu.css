@@ -29,6 +29,7 @@
   pointer-events: none;
 }
 .content {
+  transition: all 150ms ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +53,7 @@
   stroke-linejoin: round;
   stroke-width: 2px;
 }
-. .arrow.active {
+.arrow.active {
   stroke: var(--activeArrow-color);
 }
 /* --------------------------------- Return --------------------------------- */
