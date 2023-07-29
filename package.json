@@ -1,6 +1,6 @@
 {
   "name": "@spaceymonk/react-radial-menu",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "React component for radial menu with submenu support.",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "react-circular-context-menu"
   ],
   "author": "Berktug K. Ozkan <b.kaan.ozkan@gmail.com> (https://github.com/spaceymonk)",
+  "homepage": "https://spaceymonk.github.io/react-radial-menu/",
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.22.9",
