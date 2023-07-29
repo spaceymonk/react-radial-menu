@@ -24,7 +24,8 @@ export interface MenuItemProps {
   __angleStep?: number;
   __parentMenuId?: string;
   children: React.ReactNode;
-  onItemClicked?: (event: React.MouseEvent<SVGPathElement, MouseEvent>, index: number) => void;
+  data?: any;
+  onItemClicked?: (event: React.MouseEvent<SVGPathElement, MouseEvent>, index: number, data?: any) => void;
 }
 
 export interface SubMenuProps extends MenuItemProps {

@@ -29,7 +29,7 @@ const MenuItem = (props: MenuItemProps) => {
           event.preventDefault();
           event.stopPropagation();
           if (props.onItemClicked) {
-            props.onItemClicked(event, index);
+            props.onItemClicked(event, index, props.data);
           }
           setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
         }}

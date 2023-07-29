@@ -25,7 +25,7 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
           event.preventDefault();
           event.stopPropagation();
           if (props.onItemClicked) {
-            props.onItemClicked(event, index);
+            props.onItemClicked(event, index, props.data);
           }
           setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
         }}
