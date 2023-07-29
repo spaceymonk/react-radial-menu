@@ -31,6 +31,7 @@ export interface SubMenuProps extends MenuItemProps {
   sectionView: React.ReactNode;
   displayPosition: DisplayPosition;
   displayView?: React.ReactNode;
+  onDisplayClick?: MenuDisplayProps["onClick"];
 }
 
 export interface MenuDisplayProps {

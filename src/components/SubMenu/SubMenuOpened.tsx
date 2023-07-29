@@ -27,7 +27,12 @@ export const SubMenuOpened = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
       <MenuDisplay
         __parentMenuId={myMenuId}
         position={props.displayPosition}
-        onClick={() => setData((prev) => ({ ...prev, activeMenuId: props.__parentMenuId as string }))}
+        onClick={(event, position) => {
+          if (props.onDisplayClick) {
+            props.onDisplayClick(event, position);
+          }
+          setData((prev) => ({ ...prev, activeMenuId: props.__parentMenuId as string }));
+        }}
       >
         {props.displayView}
       </MenuDisplay>
