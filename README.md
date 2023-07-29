@@ -14,7 +14,7 @@ menu or as a menu for your mobile app.
 
 Click [here](https://spaceymonk.github.io/react-radial-menu/).
 
-[![Demo](./demo.gif)](https://spaceymonk.github.io/react-radial-menu/)
+[![Demo](https://raw.githubusercontent.com/spaceymonk/react-radial-menu/master/demo.gif)](https://spaceymonk.github.io/react-radial-menu/)
 
 ## Installation
 
