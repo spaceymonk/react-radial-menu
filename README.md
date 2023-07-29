@@ -26,8 +26,6 @@ npm install @spaceymonk/react-radial-menu
 
 Just wrap your menu items with `<Menu>` component and pass it to `<MenuProvider>`.
 
-{/_ prettier-ignore _/}
-
 ```jsx
 import React from "react";
 import { Menu, MenuItem, MenuProvider, SubMenu } from "@spaceymonk/react-radial-menu";
@@ -61,36 +59,26 @@ function App() {
       <MenuProvider>
         <Menu centerX={position.x} centerY={position.y} innerRadius={75} outerRadius={150} show={show}>
           {/* Populate your menu here */}
-          <MenuItem onItemClicked={handleItemClick} data="1. Item">
-            1. Item
-          </MenuItem>
+          <MenuItem onItemClicked={handleItemClick} data="1. Item">1. Item</MenuItem>
           <SubMenu
             onDisplayClick={handleDisplayClick}
             onItemClicked={handleSubMenuClick}
             sectionView="2. Sub Menu"
+            data="2. Sub Menu"
             displayPosition="bottom"
           >
-            <MenuItem onItemClicked={handleItemClick} data="2.1. Item">
-              2.1. Item
-            </MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data="2.2. Item">
-              2.2. Item
-            </MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data="2.3. Item">
-              2.3. Item
-            </MenuItem>
+            <MenuItem onItemClicked={handleItemClick} data="2.1. Item">2.1. Item</MenuItem>
+            <MenuItem onItemClicked={handleItemClick} data="2.2. Item">2.2. Item</MenuItem>
+            <MenuItem onItemClicked={handleItemClick} data="2.3. Item">2.3. Item</MenuItem>
             <SubMenu
               onDisplayClick={handleDisplayClick}
               onItemClicked={handleSubMenuClick}
               sectionView="2.4. Sub Menu"
+              data="2.4. Sub Menu"
               displayPosition="bottom"
             >
-              <MenuItem onItemClicked={handleItemClick} data="2.4.1. Item">
-                2.4.1. Item
-              </MenuItem>
-              <MenuItem onItemClicked={handleItemClick} data="2.4.2. Item">
-                2.4.2. Item
-              </MenuItem>
+              <MenuItem onItemClicked={handleItemClick} data="2.4.1. Item">2.4.1. Item</MenuItem>
+              <MenuItem onItemClicked={handleItemClick} data="2.4.2. Item">2.4.2. Item</MenuItem>
             </SubMenu>
           </SubMenu>
         </Menu>
