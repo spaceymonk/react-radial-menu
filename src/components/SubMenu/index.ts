@@ -1,1 +1,1 @@
-export { default as SubMenu } from "./SubMenu";
+export { default } from "./SubMenu";
