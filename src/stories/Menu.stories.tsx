@@ -4,91 +4,160 @@ import Menu from "../components/Menu";
 import MenuProvider from "../components/MenuContext";
 import MenuItem from "../components/MenuItem";
 import SubMenu from "../components/SubMenu/SubMenu";
-import { MenuProps } from "../components/types";
+import { DisplayPosition, MenuProps } from "../components/types";
 
 export default {
-  title: "Menu",
+  title: "Demos",
   component: Menu,
 } as Meta<typeof Menu>;
 
-const Renderer = (args: MenuProps & { childrenCount: number; size: number; fontSize: number }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [position, setPosition] = React.useState({ x: 0, y: 0 });
-  const [clickedIndex, setClickedIndex] = React.useState("");
+interface SubMenuAndDisplaysArgs extends MenuProps {
+  outerRadius: number;
+  innerRadius: number;
+  displayPosition: DisplayPosition;
+  displayView: string;
+}
 
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
+export const SubMenuAndDisplays: StoryObj<SubMenuAndDisplaysArgs> = {
+  render: (args) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [position, setPosition] = React.useState({ x: 0, y: 0 });
+    const [clickedIndex, setClickedIndex] = React.useState("");
 
-    if (isOpen) {
+    const handleClick = (event: React.MouseEvent) => {
+      event.preventDefault();
+      if (isOpen) {
+        setIsOpen(false);
+      } else {
+        setPosition({ x: event.clientX, y: event.clientY });
+        setIsOpen(true);
+      }
+    };
+
+    const handleCloseRequest = () => {
+      if (isOpen) {
+        setClickedIndex("you have closed the menu without clicking any item");
+        setIsOpen(false);
+      }
+    };
+
+    const handleItemClick = (event: React.MouseEvent, index: number) => {
+      setClickedIndex(`you have clicked item ${index}: <item>`);
       setIsOpen(false);
-    } else {
-      setPosition({ x: event.clientX, y: event.clientY });
-      setIsOpen(true);
-    }
-  };
+    };
 
-  const handleCloseRequest = () => {
-    if (isOpen) {
-      setClickedIndex("you have closed the menu without clicking any item");
-      setIsOpen(false);
-    }
-  };
+    const handleSubMenuClick = (event: React.MouseEvent, index: number) => {
+      setClickedIndex(`you have clicked item ${index}: <submenu>`);
+    };
 
-  const handleItemClick = (event: any, index: number) => {
-    setClickedIndex("CLICKED ON " + index);
-    setIsOpen(false);
-  };
-
-  return (
-    <MenuProvider>
+    return (
       <div
         onClick={handleCloseRequest}
         onContextMenu={handleClick}
-        style={{
-          width: "100%",
-          height: "600px",
-          backgroundColor: "lightcyan",
-          border: "1px solid cyan",
-        }}
+        style={{ width: "100%", height: "600px", backgroundColor: "#efefef" }}
       >
-        <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y}>
-          <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
-          <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
-          <SubMenu displayPosition="bottom" sectionView={"S1"} displayView={"Back"}>
-            <MenuItem onItemClicked={handleItemClick}>2</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>3</MenuItem>
-          </SubMenu>
-          <MenuItem onItemClicked={handleItemClick}>4</MenuItem>
-          <SubMenu displayPosition="top" sectionView={"S2"}>
-            <MenuItem onItemClicked={handleItemClick}>5</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>6</MenuItem>
-            <SubMenu displayPosition="center" sectionView={"S3"}>
-              <MenuItem onItemClicked={handleItemClick}>7</MenuItem>
-              <MenuItem onItemClicked={handleItemClick}>8</MenuItem>
+        <MenuProvider>
+          <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y}>
+            <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+            <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
+            <SubMenu
+              onItemClicked={handleSubMenuClick}
+              displayPosition={args.displayPosition}
+              displayView={args.displayView}
+              sectionView={"2"}
+            >
+              <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+              <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
             </SubMenu>
-          </SubMenu>
-          <MenuItem onItemClicked={handleItemClick}>11</MenuItem>
-          <SubMenu displayPosition="left" sectionView={"S4"}>
-            <MenuItem onItemClicked={handleItemClick}>9</MenuItem>
-            <MenuItem onItemClicked={handleItemClick}>10</MenuItem>
-          </SubMenu>
-        </Menu>
-        <div>
-          <p>Right click to open menu</p>
-          {clickedIndex && <p>{clickedIndex}</p>}
-        </div>
+            <MenuItem onItemClicked={handleItemClick}>3</MenuItem>
+            <SubMenu
+              onItemClicked={handleSubMenuClick}
+              displayPosition={args.displayPosition}
+              displayView={args.displayView}
+              sectionView={"4"}
+            >
+              <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+              <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
+              <SubMenu
+                onItemClicked={handleSubMenuClick}
+                displayPosition={args.displayPosition}
+                displayView={args.displayView}
+                sectionView={"2"}
+              >
+                <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+                <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
+              </SubMenu>
+            </SubMenu>
+            <MenuItem onItemClicked={handleItemClick}>5</MenuItem>
+            <SubMenu
+              onItemClicked={handleSubMenuClick}
+              displayPosition={args.displayPosition}
+              displayView={args.displayView}
+              sectionView={"6"}
+            >
+              <MenuItem onItemClicked={handleItemClick}>0</MenuItem>
+              <MenuItem onItemClicked={handleItemClick}>1</MenuItem>
+            </SubMenu>
+          </Menu>
+          <div style={{ fontFamily: "var(--font-family)" }}>
+            <p>Right click to open menu...</p>
+            <p>Update "displayView" prop to change return button (it can be any React Component).</p>
+            <p>Update "displayPosition" prop to change return button position.</p>
+          </div>
+          <div>{clickedIndex && <p>{clickedIndex}</p>}</div>
+        </MenuProvider>
       </div>
-    </MenuProvider>
-  );
-};
-
-export const ProviderExample: StoryObj<MenuProps & { childrenCount: number; size: number; fontSize: number }> = {
-  render: Renderer,
+    );
+  },
+  argTypes: {
+    centerX: { table: { disable: true } },
+    centerY: { table: { disable: true } },
+    show: { table: { disable: true } },
+    displayPosition: {
+      options: ["top", "bottom", "left", "right", "center"],
+      control: { type: "select" },
+    },
+  },
   args: {
-    size: 50,
-    fontSize: 1,
     outerRadius: 150,
     innerRadius: 75,
-    childrenCount: 4,
+    displayPosition: "bottom",
+    displayView: "",
+  },
+};
+
+interface ChildrenExampleArgs extends MenuProps {
+  childrenCount: number;
+}
+
+export const ChildrenExample: StoryObj<ChildrenExampleArgs> = {
+  render: (args) => {
+    return (
+      <div style={{ backgroundColor: "#efefef", width: "100%", height: "600px", position: "relative" }}>
+        <MenuProvider>
+          <Menu
+            show={true}
+            centerX={args.outerRadius}
+            centerY={args.outerRadius}
+            innerRadius={args.innerRadius}
+            outerRadius={args.outerRadius}
+          >
+            {Array.from({ length: args.childrenCount }, (_, i) => (
+              <MenuItem key={i}>{i}</MenuItem>
+            ))}
+          </Menu>
+        </MenuProvider>
+      </div>
+    );
+  },
+  argTypes: {
+    centerX: { table: { disable: true } },
+    centerY: { table: { disable: true } },
+    show: { table: { disable: true } },
+  },
+  args: {
+    outerRadius: 150,
+    innerRadius: 75,
+    childrenCount: 10,
   },
 };
