@@ -40,7 +40,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
     <svg
       width={menuWidth}
       height={menuHeight}
-      viewBox={`-5 -5 ${menuWidth + 5} ${menuHeight + 5}`}
+      viewBox={`-3 -3 ${menuWidth + 6} ${menuHeight + 6}`}
       style={{
         width: `${menuWidth}px`,
         height: `${menuHeight}px`,
