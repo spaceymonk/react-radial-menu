@@ -1,10 +1,12 @@
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
-import { MenuItemProps, MenuProps, SubMenuProps } from "./types";
+import { MenuItemProps, MenuProps } from "./types";
+import clsx from "clsx";
 
 import "./Menu.css";
 
 export const MAIN_MENU_ID = "0";
+const ANIMATION_TIMEOUT = 150; // ms
 
 const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps) => {
   const { setData } = React.useContext(MenuContext) as MenuContextType;
@@ -33,9 +35,28 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
     });
   }, [innerRadius, outerRadius, rest.show]);
 
-  if (!rest.show) {
+  const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
+  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
+  React.useEffect(() => {
+    if (rest.show) {
+      setTransition("opening");
+      timeout.current = setTimeout(() => {
+        setTransition("opened");
+        clearTimeout(timeout.current);
+      }, ANIMATION_TIMEOUT);
+    } else {
+      setTransition("closing");
+      timeout.current = setTimeout(() => {
+        setTransition("closed");
+        clearTimeout(timeout.current);
+      }, ANIMATION_TIMEOUT);
+    }
+  }, [rest.show]);
+
+  if (transition === "closed") {
     return <></>;
   }
+
   return (
     <svg
       width={menuWidth}
@@ -47,7 +68,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
         left: `${centerX - outerRadius}px`,
         top: `${centerY - outerRadius}px`,
       }}
-      className="menu"
+      className={clsx("menu", transition)}
     >
       {React.Children.map(rest.children, (child, index) => {
         if (React.isValidElement(child)) {

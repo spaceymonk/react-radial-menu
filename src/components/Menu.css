@@ -8,15 +8,24 @@
   --arrow-color: #6f6e77;
   --activeArrow-color: #fff;
   --font-family: "Roboto", sans-serif;
+  --animation-delay: 150ms;
+}
+.closing,
+.opening {
+  opacity: 0;
+}
+.opened {
+  opacity: 1;
 }
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
   position: absolute;
   z-index: var(--zIndex);
+  transition: all var(--animation-delay) ease-in-out;
 }
 /* ---------------------------------- Base ---------------------------------- */
 .base {
-  transition: all 150ms ease-in-out;
+  transition: all var(--animation-delay) ease-in-out;
   cursor: pointer;
   fill: var(--menu-bgColor);
   stroke: var(--separator-color);
@@ -29,7 +38,7 @@
   pointer-events: none;
 }
 .content {
-  transition: all 150ms ease-in-out;
+  transition: all var(--animation-delay) ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
