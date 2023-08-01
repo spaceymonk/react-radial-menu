@@ -2,6 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "../MenuContext";
 import { SubMenuProps } from "../types";
+import { useTransition } from "../useTransition";
 import { getArrowPoints, getRingSectionPath } from "../util";
 
 export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId: string }) => {
@@ -15,6 +16,8 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
   const objectHeight = objectWidth;
   const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
   const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
+
+  const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
 
   return (
     <>
@@ -30,14 +33,14 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
           setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
         }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
-        className={clsx("base", { active })}
+        className={clsx("base", { active }, transition)}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active })}>{props.sectionView}</div>
+        <div className={clsx("content", { active }, transition)}>{props.sectionView}</div>
       </foreignObject>
       <polyline
         points={getArrowPoints(index * angleStep, (index + 1) * angleStep, outerRadius)}
-        className={clsx("arrow", { active })}
+        className={clsx("arrow", { active }, transition)}
       />
     </>
   );

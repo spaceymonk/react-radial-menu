@@ -2,6 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuDisplayProps } from "./types";
+import { useTransition } from "./useTransition";
 import { calculatePositions } from "./util";
 
 const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
@@ -14,7 +15,9 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
     [position, innerRadius, outerRadius]
   );
 
-  if (props.__parentMenuId !== activeMenuId) {
+  const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
+
+  if (transition === "closed") {
     return <></>;
   }
   return (
@@ -35,7 +38,7 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
             event.stopPropagation();
             props.onClick(event, position);
           }}
-          className={clsx("base", { active })}
+          className={clsx("base", { active }, transition)}
         />
       ) : (
         <circle
@@ -49,11 +52,11 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
             event.stopPropagation();
             props.onClick(event, position);
           }}
-          className={clsx("base", { active })}
+          className={clsx("base", { active }, transition)}
         />
       )}
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active })}>
+        <div className={clsx("content", { active }, transition)}>
           {props.children ? (
             props.children
           ) : (
@@ -61,7 +64,7 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
               <path d="M12.9998 8L6 14L12.9998 21" className={clsx("return", { active })} />
               <path
                 d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984"
-                className={clsx("return", { active })}
+                className={clsx("return", { active }, transition)}
               />
             </svg>
           )}

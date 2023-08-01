@@ -4,10 +4,11 @@ import { MAIN_MENU_ID } from "./Menu";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuItemProps } from "./types";
 import { getRingSectionPath } from "./util";
+import { useTransition } from "./useTransition";
 
 const MenuItem = (props: MenuItemProps) => {
   const { data, setData } = React.useContext(MenuContext) as MenuContextType;
-  const { innerRadius, outerRadius, middleRadius, deltaRadius, activeMenuId } = data;
+  const { innerRadius, outerRadius, middleRadius, deltaRadius } = data;
   const [active, setActive] = React.useState(false);
   const angleStep = props.__angleStep as number;
   const index = props.__index as number;
@@ -17,7 +18,9 @@ const MenuItem = (props: MenuItemProps) => {
   const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
   const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
 
-  if (props.__parentMenuId !== activeMenuId) {
+  const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
+
+  if (transition === "closed") {
     return <></>;
   }
   return (
@@ -34,10 +37,10 @@ const MenuItem = (props: MenuItemProps) => {
           setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
         }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
-        className={clsx("base", { active })}
+        className={clsx("base", { active }, transition)}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active })}>{props.children}</div>
+        <div className={clsx("content", { active }, transition)}>{props.children}</div>
       </foreignObject>
     </>
   );

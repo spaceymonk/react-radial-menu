@@ -10,6 +10,7 @@
   --font-family: "Roboto", sans-serif;
   --animation-delay: 150ms;
 }
+/* ------------------------------- Animations --------------------------------*/
 .closing,
 .opening {
   opacity: 0;
@@ -17,11 +18,22 @@
 .opened {
   opacity: 1;
 }
+.closing.base,
+.closing.menu,
+.opening.base,
+.opening.menu {
+  scale: 0;
+}
+.opened.base,
+.opened.menu {
+  scale: 1;
+}
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
   position: absolute;
   z-index: var(--zIndex);
   transition: all var(--animation-delay) ease-in-out;
+  transform-origin: center;
 }
 /* ---------------------------------- Base ---------------------------------- */
 .base {
@@ -29,6 +41,7 @@
   cursor: pointer;
   fill: var(--menu-bgColor);
   stroke: var(--separator-color);
+  transform-origin: center;
 }
 .base.active {
   fill: var(--activeItem-bgColor);
