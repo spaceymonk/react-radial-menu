@@ -11,16 +11,28 @@
   --animation-delay: 300ms;
 }
 /* ------------------------------- Animations --------------------------------*/
-.menu.closing,
-.menu.opening {
+.menu.closing.fade,
+.menu.opening.fade {
   opacity: 0;
-  scale: 0;
-  rotate: -90deg;
 }
-.menu.opened {
+.menu.opened.fade {
   opacity: 1;
+}
+
+.menu.closing.scale,
+.menu.opening.scale {
+  scale: 0;
+}
+.menu.opened.scale {
   scale: 1;
-  rotate: 0;
+}
+
+.menu.closing.rotate,
+.menu.opening.rotate {
+  rotate: -45deg;
+}
+.menu.opened.rotate {
+  scale: 0deg;
 }
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
@@ -30,8 +42,6 @@
   transform-origin: center;
 }
 .menu g {
-  transition: all var(--animation-delay) ease;
-  transform-origin: center;
   cursor: pointer;
 }
 /* ---------------------------------- Base ---------------------------------- */

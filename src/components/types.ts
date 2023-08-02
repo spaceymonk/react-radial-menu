@@ -17,6 +17,9 @@ export interface MenuProps {
   centerY: number;
   children: React.ReactNode;
   show?: boolean;
+  animationTimeout?: number;
+  animateSubMenuChange?: boolean;
+  className?: string;
 }
 
 export interface MenuItemProps {

@@ -57,13 +57,18 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
 
     return (
       <div
-        className={clsx({ dark: args.darkMode })}
         onClick={handleCloseRequest}
         onContextMenu={handleClick}
         style={{ width: "100%", height: "600px", backgroundColor: "#efefef" }}
       >
         <MenuProvider>
-          <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y}>
+          <Menu
+            {...args}
+            className={clsx({ dark: args.darkMode }, "fade scale")}
+            show={isOpen}
+            centerX={position.x}
+            centerY={position.y}
+          >
             {Array.from({ length: args.childrenCount }, (_, i) => (
               <MenuItem key={i} data={"item " + i} onItemClicked={handleItemClick}>
                 item {i}
@@ -137,6 +142,9 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
     childrenCount: {
       control: { type: "range", min: 1, max: 10, step: 1 },
     },
+    animationTimeout: { table: { disable: true } },
+    animateSubMenuChange: { table: { disable: true } },
+    className: { table: { disable: true } },
   },
   args: {
     outerRadius: 150,

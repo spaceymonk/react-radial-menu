@@ -6,10 +6,9 @@ import { MenuItemProps, MenuProps } from "./types";
 import "./Menu.css";
 
 export const MAIN_MENU_ID = "0";
-const ANIMATION_TIMEOUT = 300; // ms
 
 const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProps) => {
-  const { setData } = React.useContext(MenuContext) as MenuContextType;
+  const { data, setData } = React.useContext(MenuContext) as MenuContextType;
 
   const numOfChildren = React.Children.count(props.children);
   if (numOfChildren < 2) {
@@ -21,6 +20,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
   const deltaRadius = outerRadius - innerRadius;
   const menuWidth = outerRadius * 2;
   const menuHeight = menuWidth;
+  const animationTimeout = React.useMemo(() => props.animationTimeout || 300, [props.animationTimeout]);
   const myMenuId = MAIN_MENU_ID;
 
   React.useEffect(() => {
@@ -37,26 +37,32 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
 
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();
-  React.useEffect(() => {
+  const handleTransition = React.useCallback(() => {
+    document.documentElement.style.setProperty("--animation-delay", `${animationTimeout}ms`);
     if (props.show) {
       setTransition("opening");
       timeout.current = setTimeout(() => {
         setTransition("opened");
         clearTimeout(timeout.current);
-      }, ANIMATION_TIMEOUT);
+      }, animationTimeout);
     } else {
       setTransition("closing");
       timeout.current = setTimeout(() => {
         setTransition("closed");
         clearTimeout(timeout.current);
-      }, ANIMATION_TIMEOUT);
+      }, animationTimeout);
     }
+  }, [props.show, animationTimeout]);
+  React.useEffect(() => {
+    handleTransition();
   }, [props.show]);
+  React.useEffect(() => {
+    if (props.animateSubMenuChange) handleTransition();
+  }, [data.activeMenuId, props.animateSubMenuChange]);
 
   if (transition === "closed") {
     return <></>;
   }
-
   return (
     <svg
       width={menuWidth}
@@ -68,7 +74,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
         left: `${centerX - outerRadius}px`,
         top: `${centerY - outerRadius}px`,
       }}
-      className={clsx("menu", transition)}
+      className={clsx("menu", transition, props.className)}
     >
       {React.Children.map(props.children, (child, index) => {
         if (React.isValidElement(child)) {
