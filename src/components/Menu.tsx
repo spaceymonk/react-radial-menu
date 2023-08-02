@@ -1,17 +1,17 @@
+import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuItemProps, MenuProps } from "./types";
-import clsx from "clsx";
 
 import "./Menu.css";
 
 export const MAIN_MENU_ID = "0";
-const ANIMATION_TIMEOUT = 150; // ms
+const ANIMATION_TIMEOUT = 300; // ms
 
-const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps) => {
+const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProps) => {
   const { setData } = React.useContext(MenuContext) as MenuContextType;
 
-  const numOfChildren = React.Children.count(rest.children);
+  const numOfChildren = React.Children.count(props.children);
   if (numOfChildren < 2) {
     throw new Error("RadialMenu must have at least 2 children");
   }
@@ -24,21 +24,21 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
   const myMenuId = MAIN_MENU_ID;
 
   React.useEffect(() => {
-    setData({
+    setData((prev) => ({
       innerRadius,
       outerRadius,
       middleRadius,
       deltaRadius,
       menuWidth,
       menuHeight,
-      activeMenuId: myMenuId,
-    });
-  }, [innerRadius, outerRadius, rest.show]);
+      activeMenuId: props.show ? myMenuId : prev.activeMenuId,
+    }));
+  }, [innerRadius, outerRadius, props.show]);
 
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();
   React.useEffect(() => {
-    if (rest.show) {
+    if (props.show) {
       setTransition("opening");
       timeout.current = setTimeout(() => {
         setTransition("opened");
@@ -51,7 +51,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
         clearTimeout(timeout.current);
       }, ANIMATION_TIMEOUT);
     }
-  }, [rest.show]);
+  }, [props.show]);
 
   if (transition === "closed") {
     return <></>;
@@ -70,7 +70,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...rest }: MenuProps
       }}
       className={clsx("menu", transition)}
     >
-      {React.Children.map(rest.children, (child, index) => {
+      {React.Children.map(props.children, (child, index) => {
         if (React.isValidElement(child)) {
           let prop: Partial<MenuItemProps> = {
             __index: index,

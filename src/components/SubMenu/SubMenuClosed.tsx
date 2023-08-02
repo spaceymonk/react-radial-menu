@@ -2,7 +2,6 @@ import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "../MenuContext";
 import { SubMenuProps } from "../types";
-import { useTransition } from "../useTransition";
 import { getArrowPoints, getRingSectionPath } from "../util";
 
 export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId: string }) => {
@@ -17,11 +16,8 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
   const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
   const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
 
-  const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
-
   return (
     <g
-      className={clsx(transition)}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onClick={(event) => {

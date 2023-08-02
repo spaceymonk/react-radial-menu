@@ -2,12 +2,11 @@ import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuDisplayProps } from "./types";
-import { useTransition } from "./useTransition";
 import { calculatePositions } from "./util";
 
 const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
   const { data } = React.useContext(MenuContext) as MenuContextType;
-  const { innerRadius, outerRadius } = data;
+  const { innerRadius, outerRadius, activeMenuId } = data;
   const [active, setActive] = React.useState(false);
 
   let { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight } = React.useMemo(
@@ -15,14 +14,11 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
     [position, innerRadius, outerRadius]
   );
 
-  const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
-
-  if (transition === "closed") {
+  if (props.__parentMenuId !== activeMenuId) {
     return <></>;
   }
   return (
     <g
-      className={clsx(transition)}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onClick={(event) => {

@@ -8,7 +8,7 @@
   --arrow-color: #6f6e77;
   --activeArrow-color: #fff;
   --font-family: "Roboto", sans-serif;
-  --animation-delay: 150ms;
+  --animation-delay: 300ms;
 }
 /* ------------------------------- Animations --------------------------------*/
 .menu.closing,
@@ -21,13 +21,6 @@
   opacity: 1;
   scale: 1;
   rotate: 0;
-}
-.menu g.closing,
-.menu g.opening {
-  opacity: 0;
-}
-.menu g.opened {
-  opacity: 1;
 }
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
