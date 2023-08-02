@@ -25,7 +25,7 @@ export interface MenuItemProps {
   __parentMenuId?: string;
   children: React.ReactNode;
   data?: any;
-  onItemClicked?: (event: React.MouseEvent<SVGPathElement, MouseEvent>, index: number, data?: any) => void;
+  onItemClicked?: (event: React.MouseEvent<SVGGElement, MouseEvent>, index: number, data?: any) => void;
 }
 
 export interface SubMenuProps extends MenuItemProps {
@@ -39,5 +39,5 @@ export interface MenuDisplayProps {
   position: DisplayPosition;
   children: React.ReactNode;
   __parentMenuId: string;
-  onClick: (event: React.MouseEvent<SVGPathElement | SVGCircleElement, MouseEvent>, position: DisplayPosition) => void;
+  onClick: (event: React.MouseEvent<SVGGElement, MouseEvent>, position: DisplayPosition) => void;
 }

@@ -20,18 +20,20 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
   const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
 
   return (
-    <g className={clsx(transition)}>
+    <g
+      className={clsx(transition)}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (props.onItemClicked) {
+          props.onItemClicked(event, index, props.data);
+        }
+        setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
+      }}
+    >
       <path
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          if (props.onItemClicked) {
-            props.onItemClicked(event, index, props.data);
-          }
-          setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
-        }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
         className={clsx("base", { active })}
       />

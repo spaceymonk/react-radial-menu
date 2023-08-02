@@ -24,18 +24,20 @@ const MenuItem = (props: MenuItemProps) => {
     return <></>;
   }
   return (
-    <g className={clsx(transition)}>
+    <g
+      className={clsx(transition)}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (props.onItemClicked) {
+          props.onItemClicked(event, index, props.data);
+        }
+        setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
+      }}
+    >
       <path
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          if (props.onItemClicked) {
-            props.onItemClicked(event, index, props.data);
-          }
-          setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
-        }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
         className={clsx("base", { active })}
       />

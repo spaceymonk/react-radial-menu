@@ -39,10 +39,11 @@
 .menu g {
   transition: all var(--animation-delay) ease;
   transform-origin: center;
+  cursor: pointer;
 }
 /* ---------------------------------- Base ---------------------------------- */
 .base {
-  cursor: pointer;
+  transition: all var(--animation-delay) ease;
   fill: var(--menu-bgColor);
   stroke: var(--separator-color);
 }
@@ -50,9 +51,6 @@
   fill: var(--activeItem-bgColor);
 }
 /* --------------------------------- Content -------------------------------- */
-.content-wrapper {
-  pointer-events: none;
-}
 .content {
   display: flex;
   align-items: center;
