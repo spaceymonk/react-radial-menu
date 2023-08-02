@@ -1,12 +1,14 @@
 # React Radial Menu
 
-Simple radial menu with nested sub menu support for React. You can use it for context
-menu or as a menu for your mobile app.
+Radial menu with animations and nested sub menu support for React. You can use
+it for context menu or as a menu for your mobile app.
 
 ## Features
 
 - Nested sub menu support with back button
-- Customizable with CSS variables
+- Fully customizable with CSS variables (even background drawings!)
+- Built-in animations (fade, scale, rotate) with any combination
+- Further customization with CSS classes
 - Dark mode support (thanks to CSS variables)
 - Written in TypeScript
 
@@ -57,6 +59,7 @@ function App() {
       style={{ width: "100vw", height: "100vh" }}
     >
       <MenuProvider>
+        {/* add your animation classes via `className`. See `src/stories/MenuCustomization.stories.tsx` */}
         <Menu centerX={position.x} centerY={position.y} innerRadius={75} outerRadius={150} show={show}>
           {/* Populate your menu here */}
           <MenuItem onItemClicked={handleItemClick} data="1. Item">1. Item</MenuItem>
