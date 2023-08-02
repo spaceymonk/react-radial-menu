@@ -24,7 +24,7 @@ const MenuItem = (props: MenuItemProps) => {
     return <></>;
   }
   return (
-    <>
+    <g className={clsx(transition)}>
       <path
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
@@ -37,12 +37,12 @@ const MenuItem = (props: MenuItemProps) => {
           setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
         }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
-        className={clsx("base", { active }, transition)}
+        className={clsx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active }, transition)}>{props.children}</div>
+        <div className={clsx("content", { active })}>{props.children}</div>
       </foreignObject>
-    </>
+    </g>
   );
 };
 

@@ -11,37 +11,40 @@
   --animation-delay: 150ms;
 }
 /* ------------------------------- Animations --------------------------------*/
-.closing,
-.opening {
+.menu.closing,
+.menu.opening {
+  opacity: 0;
+  scale: 0;
+  rotate: -90deg;
+}
+.menu.opened {
+  opacity: 1;
+  scale: 1;
+  rotate: 0;
+}
+.menu g.closing,
+.menu g.opening {
   opacity: 0;
 }
-.opened {
+.menu g.opened {
   opacity: 1;
-}
-.closing.base,
-.closing.menu,
-.opening.base,
-.opening.menu {
-  scale: 0;
-}
-.opened.base,
-.opened.menu {
-  scale: 1;
 }
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
   position: absolute;
   z-index: var(--zIndex);
-  transition: all var(--animation-delay) ease-in-out;
+  transition: all var(--animation-delay) ease;
+  transform-origin: center;
+}
+.menu g {
+  transition: all var(--animation-delay) ease;
   transform-origin: center;
 }
 /* ---------------------------------- Base ---------------------------------- */
 .base {
-  transition: all var(--animation-delay) ease-in-out;
   cursor: pointer;
   fill: var(--menu-bgColor);
   stroke: var(--separator-color);
-  transform-origin: center;
 }
 .base.active {
   fill: var(--activeItem-bgColor);
@@ -51,7 +54,6 @@
   pointer-events: none;
 }
 .content {
-  transition: all var(--animation-delay) ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;

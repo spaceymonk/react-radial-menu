@@ -20,7 +20,7 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
   const transition = useTransition((activeMenuId) => props.__parentMenuId === activeMenuId);
 
   return (
-    <>
+    <g className={clsx(transition)}>
       <path
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
@@ -33,15 +33,15 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
           setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
         }}
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
-        className={clsx("base", { active }, transition)}
+        className={clsx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active }, transition)}>{props.sectionView}</div>
+        <div className={clsx("content", { active })}>{props.sectionView}</div>
       </foreignObject>
       <polyline
         points={getArrowPoints(index * angleStep, (index + 1) * angleStep, outerRadius)}
-        className={clsx("arrow", { active }, transition)}
+        className={clsx("arrow", { active })}
       />
-    </>
+    </g>
   );
 };
