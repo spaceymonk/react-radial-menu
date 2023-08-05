@@ -20,7 +20,7 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
   const deltaRadius = outerRadius - innerRadius;
   const menuWidth = outerRadius * 2;
   const menuHeight = menuWidth;
-  const animationTimeout = React.useMemo(() => props.animationTimeout || 300, [props.animationTimeout]);
+  const animationTimeout = React.useMemo(() => props.animationTimeout || 0, [props.animationTimeout]);
   const myMenuId = MAIN_MENU_ID;
 
   React.useEffect(() => {
