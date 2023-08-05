@@ -17,7 +17,18 @@ const initialData = {
   outerRadius: 0,
 };
 
-const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProps) => {
+const Menu = ({
+  centerX,
+  centerY,
+  innerRadius,
+  outerRadius,
+  animationTimeout,
+  show,
+  animateSubMenuChange,
+  animation,
+  theme,
+  ...props
+}: MenuProps) => {
   const [data, setData] = React.useState<MenuContextData>(initialData);
 
   const numOfChildren = React.Children.count(props.children);
@@ -30,7 +41,8 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
   const deltaRadius = outerRadius - innerRadius;
   const menuWidth = outerRadius * 2;
   const menuHeight = menuWidth;
-  const animationTimeout = React.useMemo(() => props.animationTimeout || 0, [props.animationTimeout]);
+
+  animationTimeout = React.useMemo(() => animationTimeout || 0, [animationTimeout]);
   const myMenuId = MAIN_MENU_ID;
 
   React.useEffect(() => {
@@ -41,34 +53,34 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
       deltaRadius,
       menuWidth,
       menuHeight,
-      activeMenuId: props.show ? myMenuId : prev.activeMenuId,
+      activeMenuId: show ? myMenuId : prev.activeMenuId,
     }));
-  }, [innerRadius, outerRadius, props.show]);
+  }, [innerRadius, outerRadius, show]);
 
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
-  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
   const handleTransition = React.useCallback(() => {
     document.documentElement.style.setProperty("--animation-delay", `${animationTimeout}ms`);
-    if (props.show) {
+    if (show) {
       setTransition("opening");
-      timeout.current = setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setTransition("opened");
-        clearTimeout(timeout.current);
+        clearTimeout(timeoutRef.current);
       }, animationTimeout);
     } else {
       setTransition("closing");
-      timeout.current = setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setTransition("closed");
-        clearTimeout(timeout.current);
+        clearTimeout(timeoutRef.current);
       }, animationTimeout);
     }
-  }, [props.show, animationTimeout]);
+  }, [show, animationTimeout]);
   React.useEffect(() => {
     handleTransition();
-  }, [props.show]);
+  }, [show]);
   React.useEffect(() => {
-    if (props.animateSubMenuChange) handleTransition();
-  }, [data.activeMenuId, props.animateSubMenuChange]);
+    if (animateSubMenuChange) handleTransition();
+  }, [data.activeMenuId, animateSubMenuChange]);
 
   if (transition === "closed") {
     return <></>;
@@ -76,16 +88,18 @@ const Menu = ({ centerX, centerY, innerRadius, outerRadius, ...props }: MenuProp
   return (
     <MenuContext.Provider value={{ data, setData }}>
       <svg
+        {...props}
         width={menuWidth}
         height={menuHeight}
         viewBox={`-3 -3 ${menuWidth + 6} ${menuHeight + 6}`}
         style={{
+          ...props.style,
           width: `${menuWidth}px`,
           height: `${menuHeight}px`,
           left: `${centerX - outerRadius}px`,
           top: `${centerY - outerRadius}px`,
         }}
-        className={clsx("menu", transition, props.className)}
+        className={clsx("menu", transition, props.className, animation, theme)}
       >
         {React.Children.map(props.children, (child, index) => {
           if (React.isValidElement(child)) {

@@ -13,7 +13,6 @@ export default {
 } as Meta<typeof Menu>;
 
 interface RadialMenuCustomizationsArgs extends MenuProps {
-  animation: string[];
   menuBgColor: string;
   separatorColor: string;
   itemColor: string;
@@ -21,7 +20,6 @@ interface RadialMenuCustomizationsArgs extends MenuProps {
   activeItemBgColor: string;
   arrowColor: string;
   activeArrowColor: string;
-  fontFamily: string;
   displayPosition: DisplayPosition;
   displayView: string;
 }
@@ -36,7 +34,6 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
       document.documentElement.style.setProperty("--activeItem-bgColor", args.activeItemBgColor);
       document.documentElement.style.setProperty("--arrow-color", args.arrowColor);
       document.documentElement.style.setProperty("--activeArrow-color", args.activeArrowColor);
-      document.documentElement.style.setProperty("--font-family", args.fontFamily);
     }, [
       args.menuBgColor,
       args.separatorColor,
@@ -45,13 +42,12 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
       args.activeItemBgColor,
       args.arrowColor,
       args.activeArrowColor,
-      args.fontFamily,
     ]);
 
     return (
       <div style={{ width: "400px", height: "400px", backgroundColor: "#efefef" }}>
         <Menu
-          className={args.animation.join(" ")}
+          animation={args.animation}
           animationTimeout={args.animationTimeout}
           animateSubMenuChange={args.animateSubMenuChange}
           show={args.show}
@@ -59,6 +55,7 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
           innerRadius={75}
           centerX={200}
           centerY={200}
+          theme={args.theme}
         >
           <SubMenu
             data={"More"}
@@ -117,6 +114,5 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
     activeItemBgColor: "#3498db",
     arrowColor: "#6f6e77",
     activeArrowColor: "#fff",
-    fontFamily: '"Roboto", sans-serif',
   },
 };

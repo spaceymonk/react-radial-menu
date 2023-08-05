@@ -7,8 +7,14 @@
   --activeItem-bgColor: #3498db;
   --arrow-color: #6f6e77;
   --activeArrow-color: #fff;
-  --font-family: "Roboto", sans-serif;
   --animation-delay: 300ms;
+}
+/* --------------------------------- Themes --------------------------------- */
+.dark {
+  --menu-bgColor: rgba(40, 40, 40, 0.98);
+  --separator-color: #4c4c4c;
+  --item-color: #fff;
+  --activeItem-bgColor: #3498db;
 }
 /* ------------------------------- Animations --------------------------------*/
 .menu.closing.fade,
@@ -32,7 +38,7 @@
   rotate: -45deg;
 }
 .menu.opened.rotate {
-  scale: 0deg;
+  rotate: 0deg;
 }
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
@@ -40,6 +46,8 @@
   z-index: var(--zIndex);
   transition: all var(--animation-delay) ease;
   transform-origin: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
 }
 .menu g {
   cursor: pointer;
@@ -61,7 +69,6 @@
   text-align: center;
   flex-direction: column;
   pointer-events: none;
-  font-family: var(--font-family);
   color: var(--item-color);
   overflow: hidden;
   width: 100%;
