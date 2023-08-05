@@ -6,7 +6,6 @@ import MenuItem from "../components/MenuItem";
 import { DisplayPosition, MenuProps } from "../components/types";
 
 import { SubMenu } from "../components";
-import "./Menu.stories.css";
 
 export default {
   title: "Demos",
@@ -19,7 +18,6 @@ interface RadialMenuArgs extends MenuProps {
   displayPosition: DisplayPosition;
   displayView: string;
   childrenCount: number;
-  darkMode: boolean;
 }
 
 export const RadialMenu: StoryObj<RadialMenuArgs> = {
@@ -60,13 +58,7 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
         onContextMenu={handleClick}
         style={{ width: "100%", height: "600px", backgroundColor: "#efefef" }}
       >
-        <Menu
-          {...args}
-          className={clsx({ dark: args.darkMode }, "fade scale")}
-          show={isOpen}
-          centerX={position.x}
-          centerY={position.y}
-        >
+        <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y} theme={args.theme} animation="fade">
           {Array.from({ length: args.childrenCount }, (_, i) => (
             <MenuItem key={i} data={"item " + i} onItemClicked={handleItemClick}>
               item {i}
@@ -139,9 +131,9 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
     childrenCount: {
       control: { type: "range", min: 1, max: 10, step: 1 },
     },
+    animation: {table: { disable: true } },
     animationTimeout: { table: { disable: true } },
     animateSubMenuChange: { table: { disable: true } },
-    className: { table: { disable: true } },
   },
   args: {
     outerRadius: 150,
@@ -149,6 +141,5 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
     displayPosition: "bottom",
     displayView: "",
     childrenCount: 1,
-    darkMode: false,
   },
 };

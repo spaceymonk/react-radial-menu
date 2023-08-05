@@ -21,7 +21,7 @@ export interface MenuProps extends React.SVGProps<SVGSVGElement> {
   show?: boolean;
   animationTimeout?: number;
   animateSubMenuChange?: boolean;
-  animation?: AnimationType[];
+  animation?: AnimationType[] | AnimationType;
   theme?: "light" | "dark";
 }
 

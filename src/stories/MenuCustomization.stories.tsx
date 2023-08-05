@@ -5,8 +5,6 @@ import Menu from "../components/Menu";
 import MenuItem from "../components/MenuItem";
 import { DisplayPosition, MenuProps } from "../components/types";
 
-import "./Menu.stories.css";
-
 export default {
   title: "Demos",
   component: Menu,
@@ -26,14 +24,16 @@ interface RadialMenuCustomizationsArgs extends MenuProps {
 
 export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = {
   render: (args) => {
+    const wrapperRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
-      document.documentElement.style.setProperty("--menu-bgColor", args.menuBgColor);
-      document.documentElement.style.setProperty("--separator-color", args.separatorColor);
-      document.documentElement.style.setProperty("--item-color", args.itemColor);
-      document.documentElement.style.setProperty("--activeItem-color", args.activeItemColor);
-      document.documentElement.style.setProperty("--activeItem-bgColor", args.activeItemBgColor);
-      document.documentElement.style.setProperty("--arrow-color", args.arrowColor);
-      document.documentElement.style.setProperty("--activeArrow-color", args.activeArrowColor);
+      if (!wrapperRef.current) return;
+      wrapperRef.current.style.setProperty("--menu-bgColor", args.menuBgColor);
+      wrapperRef.current.style.setProperty("--separator-color", args.separatorColor);
+      wrapperRef.current.style.setProperty("--item-color", args.itemColor);
+      wrapperRef.current.style.setProperty("--activeItem-color", args.activeItemColor);
+      wrapperRef.current.style.setProperty("--activeItem-bgColor", args.activeItemBgColor);
+      wrapperRef.current.style.setProperty("--arrow-color", args.arrowColor);
+      wrapperRef.current.style.setProperty("--activeArrow-color", args.activeArrowColor);
     }, [
       args.menuBgColor,
       args.separatorColor,
@@ -45,7 +45,7 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
     ]);
 
     return (
-      <div style={{ width: "400px", height: "400px", backgroundColor: "#efefef" }}>
+      <div ref= {wrapperRef} style={{ width: "400px", height: "400px", backgroundColor: "#efefef" }}>
         <Menu
           animation={args.animation}
           animationTimeout={args.animationTimeout}
