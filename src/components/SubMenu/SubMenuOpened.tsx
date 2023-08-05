@@ -1,21 +1,30 @@
 import React from "react";
 import { MenuContext, MenuContextType } from "../MenuContext";
 import MenuDisplay from "../MenuDisplay";
-import { MenuItemProps, SubMenuProps } from "../types";
+import { SubMenuOpenedProps } from "../types";
 
-export const SubMenuOpened = ({ myMenuId, ...props }: SubMenuProps & { myMenuId: string }) => {
+export const SubMenuOpened = ({
+  __myMenuId,
+  __parentMenuId,
+  displayPosition,
+  children,
+  displayView,
+  onDisplayClick,
+}: SubMenuOpenedProps) => {
   const { setData } = React.useContext(MenuContext) as MenuContextType;
+  const myMenuId = __myMenuId as string;
+  const parentMenuId = __parentMenuId as string;
 
-  const numOfChildren = React.Children.count(props.children);
+  const numOfChildren = React.Children.count(children);
   if (numOfChildren < 2) {
     throw new Error("RadialMenu must have at least 2 children");
   }
   const angleStep = (2 * Math.PI) / numOfChildren;
   return (
     <>
-      {React.Children.map(props.children, (child, index) => {
+      {React.Children.map(children, (child, index) => {
         if (React.isValidElement(child)) {
-          let prop: Partial<MenuItemProps> = {
+          let prop = {
             __index: index,
             __angleStep: angleStep,
             __parentMenuId: myMenuId,
@@ -26,15 +35,13 @@ export const SubMenuOpened = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
       })}
       <MenuDisplay
         __parentMenuId={myMenuId}
-        position={props.displayPosition}
+        position={displayPosition}
         onClick={(event, position) => {
-          if (props.onDisplayClick) {
-            props.onDisplayClick(event, position);
-          }
-          setData((prev) => ({ ...prev, activeMenuId: props.__parentMenuId as string }));
+          onDisplayClick?.(event, position);
+          setData((prev) => ({ ...prev, activeMenuId: parentMenuId }));
         }}
       >
-        {props.displayView}
+        {displayView}
       </MenuDisplay>
     </>
   );

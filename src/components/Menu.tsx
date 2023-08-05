@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { MenuContext } from "./MenuContext";
-import { MenuItemProps, MenuProps, MenuContextData } from "./types";
+import { MenuContextData, MenuProps } from "./types";
 
 import "./Menu.css";
 
@@ -103,7 +103,7 @@ const Menu = ({
       >
         {React.Children.map(props.children, (child, index) => {
           if (React.isValidElement(child)) {
-            let prop: Partial<MenuItemProps> = {
+            let prop = {
               __index: index,
               __angleStep: angleStep,
               __parentMenuId: myMenuId,

@@ -1,31 +1,44 @@
 import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "../MenuContext";
-import { SubMenuProps } from "../types";
-import { getArrowPoints, getRingSectionPath } from "../util";
+import { SubMenuClosedProps } from "../types";
+import { getArrowPoints, getObjectDimensions, getRingSectionPath } from "../util";
 
-export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId: string }) => {
+export const SubMenuClosed = ({
+  __myMenuId,
+  __angleStep,
+  __index,
+  itemView,
+  data: propsData,
+  onItemClick,
+  ...props
+}: SubMenuClosedProps) => {
   const { data, setData } = React.useContext(MenuContext) as MenuContextType;
   const { innerRadius, outerRadius, middleRadius, deltaRadius } = data;
-
   const [active, setActive] = React.useState(false);
-  const angleStep = props.__angleStep as number;
-  const index = props.__index as number;
-  const objectWidth = Math.min(deltaRadius / Math.sqrt(2), angleStep * middleRadius);
-  const objectHeight = objectWidth;
-  const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
-  const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
+  const angleStep = __angleStep as number;
+  const index = __index as number;
+  const myMenuId = __myMenuId as string;
+
+  const { objectX, objectY, objectWidth, objectHeight } = React.useMemo(
+    () => getObjectDimensions(deltaRadius, angleStep, middleRadius, index, outerRadius),
+    [deltaRadius, angleStep, middleRadius, index, outerRadius]
+  );
 
   return (
     <g
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
+      onMouseEnter={(e) => {
+        props.onMouseEnter?.(e);
+        setActive(true);
+      }}
+      onMouseLeave={(e) => {
+        props.onMouseLeave?.(e);
+        setActive(false);
+      }}
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (props.onItemClicked) {
-          props.onItemClicked(event, index, props.data);
-        }
+        onItemClick?.(event, index, propsData);
         setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
       }}
     >
@@ -34,7 +47,7 @@ export const SubMenuClosed = ({ myMenuId, ...props }: SubMenuProps & { myMenuId:
         className={clsx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
-        <div className={clsx("content", { active })}>{props.sectionView}</div>
+        <div className={clsx("content", { active })}>{itemView}</div>
       </foreignObject>
       <polyline
         points={getArrowPoints(index * angleStep, (index + 1) * angleStep, outerRadius)}

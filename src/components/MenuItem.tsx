@@ -3,33 +3,39 @@ import React from "react";
 import { MAIN_MENU_ID } from "./Menu";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuItemProps } from "./types";
-import { getRingSectionPath } from "./util";
+import { getObjectDimensions, getRingSectionPath } from "./util";
 
-const MenuItem = (props: MenuItemProps) => {
+const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onItemClick, ...props }: MenuItemProps) => {
   const { data, setData } = React.useContext(MenuContext) as MenuContextType;
   const { innerRadius, outerRadius, middleRadius, deltaRadius, activeMenuId } = data;
   const [active, setActive] = React.useState(false);
-  const angleStep = props.__angleStep as number;
-  const index = props.__index as number;
+  const angleStep = __angleStep as number;
+  const index = __index as number;
+  const parentMenuId = __parentMenuId as string;
 
-  const objectWidth = Math.min(deltaRadius / Math.sqrt(2), angleStep * middleRadius);
-  const objectHeight = objectWidth;
-  const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
-  const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
+  const { objectX, objectY, objectWidth, objectHeight } = React.useMemo(
+    () => getObjectDimensions(deltaRadius, angleStep, middleRadius, index, outerRadius),
+    [deltaRadius, angleStep, middleRadius, index, outerRadius]
+  );
 
-  if (props.__parentMenuId !== activeMenuId) {
+  if (parentMenuId !== activeMenuId) {
     return <></>;
   }
   return (
     <g
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
+      {...props}
+      onMouseEnter={(e) => {
+        props.onMouseEnter?.(e);
+        setActive(true);
+      }}
+      onMouseLeave={(e) => {
+        props.onMouseLeave?.(e);
+        setActive(false);
+      }}
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (props.onItemClicked) {
-          props.onItemClicked(event, index, props.data);
-        }
+        onItemClick?.(event, index, propsData);
         setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
       }}
     >

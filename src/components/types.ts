@@ -10,7 +10,7 @@ export interface MenuContextData {
   activeMenuId: string;
 }
 
-type AnimationType = "fade" | "rotate" | "scale";
+export type AnimationType = "fade" | "rotate" | "scale";
 
 export interface MenuProps extends React.SVGProps<SVGSVGElement> {
   innerRadius: number;
@@ -25,25 +25,34 @@ export interface MenuProps extends React.SVGProps<SVGSVGElement> {
   theme?: "light" | "dark";
 }
 
-export interface MenuItemProps {
+export interface MenuItemProps extends Omit<React.SVGProps<SVGGElement>, "onClick"> {
   __index?: number;
   __angleStep?: number;
   __parentMenuId?: string;
-  children: React.ReactNode;
+
   data?: any;
-  onItemClicked?: (event: React.MouseEvent<SVGGElement, MouseEvent>, index: number, data?: any) => void;
+  onItemClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, index: number, data?: any) => void;
 }
 
-export interface SubMenuProps extends MenuItemProps {
-  sectionView: React.ReactNode;
+export interface SubMenuClosedProps extends Omit<MenuItemProps, "children"> {
+  __myMenuId?: string;
+  itemView?: React.ReactNode;
+}
+
+export interface SubMenuOpenedProps {
+  __myMenuId?: string;
+  __parentMenuId?: string;
   displayPosition: DisplayPosition;
+  children: React.ReactNode;
   displayView?: React.ReactNode;
   onDisplayClick?: MenuDisplayProps["onClick"];
 }
 
+export type SubMenuProps = SubMenuClosedProps & SubMenuOpenedProps;
+
 export interface MenuDisplayProps {
+  __parentMenuId: string;
   position: DisplayPosition;
   children: React.ReactNode;
-  __parentMenuId: string;
   onClick: (event: React.MouseEvent<SVGGElement, MouseEvent>, position: DisplayPosition) => void;
 }

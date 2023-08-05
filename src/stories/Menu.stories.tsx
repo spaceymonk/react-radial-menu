@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-import clsx from "clsx";
 import React from "react";
 import Menu from "../components/Menu";
 import MenuItem from "../components/MenuItem";
@@ -58,45 +57,54 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
         onContextMenu={handleClick}
         style={{ width: "100%", height: "600px", backgroundColor: "#efefef" }}
       >
-        <Menu {...args} show={isOpen} centerX={position.x} centerY={position.y} theme={args.theme} animation="fade">
+        <Menu
+          innerRadius={args.innerRadius}
+          outerRadius={args.outerRadius}
+          show={isOpen}
+          centerX={position.x}
+          centerY={position.y}
+          theme={args.theme}
+          animation="fade"
+          animationTimeout={150}
+        >
           {Array.from({ length: args.childrenCount }, (_, i) => (
-            <MenuItem key={i} data={"item " + i} onItemClicked={handleItemClick}>
+            <MenuItem key={i} data={"item " + i} onItemClick={handleItemClick}>
               item {i}
             </MenuItem>
           ))}
           <SubMenu
             onDisplayClick={handleDisplayClick}
-            onItemClicked={handleSubMenuClick}
+            onItemClick={handleSubMenuClick}
             data={"More"}
-            sectionView={"More"}
+            itemView={"More"}
             displayView={args.displayView}
             displayPosition={args.displayPosition}
           >
             <SubMenu
               onDisplayClick={handleDisplayClick}
-              onItemClicked={handleSubMenuClick}
+              onItemClick={handleSubMenuClick}
               data={"More2"}
-              sectionView={"More2"}
+              itemView={"More2"}
               displayView={args.displayView}
               displayPosition={args.displayPosition}
             >
-              <MenuItem onItemClicked={handleItemClick} data={"subsub 1"}>
+              <MenuItem onItemClick={handleItemClick} data={"subsub 1"}>
                 subsub 1
               </MenuItem>
-              <MenuItem onItemClicked={handleItemClick} data={"subsub 2"}>
+              <MenuItem onItemClick={handleItemClick} data={"subsub 2"}>
                 subsub 2
               </MenuItem>
-              <MenuItem onItemClicked={handleItemClick} data={"subsub 3"}>
+              <MenuItem onItemClick={handleItemClick} data={"subsub 3"}>
                 subsub 3
               </MenuItem>
             </SubMenu>
-            <MenuItem onItemClicked={handleItemClick} data={"sub 1"}>
+            <MenuItem onItemClick={handleItemClick} data={"sub 1"}>
               sub 1
             </MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data={"sub 2"}>
+            <MenuItem onItemClick={handleItemClick} data={"sub 2"}>
               sub 2
             </MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data={"sub 3"}>
+            <MenuItem onItemClick={handleItemClick} data={"sub 3"}>
               sub 3
             </MenuItem>
           </SubMenu>
@@ -131,7 +139,7 @@ export const RadialMenu: StoryObj<RadialMenuArgs> = {
     childrenCount: {
       control: { type: "range", min: 1, max: 10, step: 1 },
     },
-    animation: {table: { disable: true } },
+    animation: { table: { disable: true } },
     animationTimeout: { table: { disable: true } },
     animateSubMenuChange: { table: { disable: true } },
   },

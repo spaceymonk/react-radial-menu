@@ -9,10 +9,22 @@ const SubMenu = (props: SubMenuProps) => {
   const { activeMenuId } = data;
   const myMenuId = `${props.__parentMenuId}-${props.__index}`;
 
+  // separate props for SubMenuClosed and SubMenuOpened
+  const { __parentMenuId, displayPosition, children, displayView, onDisplayClick, ...rest } = props;
+
   if (activeMenuId === props.__parentMenuId) {
-    return <SubMenuClosed {...props} myMenuId={myMenuId} />;
+    return <SubMenuClosed {...rest} __myMenuId={myMenuId} />;
   }
-  return <SubMenuOpened {...props} myMenuId={myMenuId} />;
+  return (
+    <SubMenuOpened
+      __myMenuId={myMenuId}
+      __parentMenuId={__parentMenuId}
+      displayPosition={displayPosition}
+      children={children}
+      displayView={displayView}
+      onDisplayClick={onDisplayClick}
+    />
+  );
 };
 
 export default SubMenu;

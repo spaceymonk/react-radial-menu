@@ -92,3 +92,17 @@ export function calculatePositions(position: string, innerRadius: number, outerR
   }
   return { startAngle, endAngle, objectX, objectY, objectWidth, objectHeight };
 }
+
+export function getObjectDimensions(
+  deltaRadius: number,
+  angleStep: number,
+  middleRadius: number,
+  index: number,
+  outerRadius: number
+) {
+  const objectWidth = Math.min(deltaRadius / Math.sqrt(2), angleStep * middleRadius);
+  const objectHeight = objectWidth;
+  const objectX = Math.cos(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectWidth / 2);
+  const objectY = Math.sin(angleStep * index + angleStep / 2) * middleRadius + (outerRadius - objectHeight / 2);
+  return { objectX, objectY, objectWidth, objectHeight };
+}

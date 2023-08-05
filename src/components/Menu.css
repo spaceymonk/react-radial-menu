@@ -1,8 +1,8 @@
 :root {
-  --zIndex: 666;
   --menu-bgColor: #fff;
   --separator-color: rgba(0, 0, 0, 0.2);
   --item-color: #333;
+  --zIndex: 666;
   --activeItem-color: #fff;
   --activeItem-bgColor: #3498db;
   --arrow-color: #6f6e77;
@@ -10,11 +10,15 @@
   --animation-delay: 300ms;
 }
 /* --------------------------------- Themes --------------------------------- */
+.light {
+  --menu-bgColor: #fff;
+  --separator-color: rgba(0, 0, 0, 0.2);
+  --item-color: #333;
+}
 .dark {
   --menu-bgColor: rgba(40, 40, 40, 0.98);
   --separator-color: #4c4c4c;
   --item-color: #fff;
-  --activeItem-bgColor: #3498db;
 }
 /* ------------------------------- Animations --------------------------------*/
 .menu.closing.fade,

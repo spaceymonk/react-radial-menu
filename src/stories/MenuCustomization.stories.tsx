@@ -59,13 +59,13 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
         >
           <SubMenu
             data={"More"}
-            sectionView={"More"}
+            itemView={"More"}
             displayView={args.displayView}
             displayPosition={args.displayPosition}
           >
             <SubMenu
               data={"More2"}
-              sectionView={"More2"}
+              itemView={"More2"}
               displayView={args.displayView}
               displayPosition={args.displayPosition}
             >
