@@ -20,6 +20,7 @@ interface RadialMenuCustomizationsArgs extends MenuProps {
   activeArrowColor: string;
   displayPosition: DisplayPosition;
   displayView: string;
+  themeSelect: "light" | "dark" | "none";
 }
 
 export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = {
@@ -45,51 +46,96 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
     ]);
 
     return (
-      <div ref= {wrapperRef} style={{ width: "400px", height: "400px", backgroundColor: "#efefef" }}>
-        <Menu
-          animation={args.animation}
-          animationTimeout={args.animationTimeout}
-          animateSubMenuChange={args.animateSubMenuChange}
-          show={args.show}
-          outerRadius={150}
-          innerRadius={75}
-          centerX={200}
-          centerY={200}
-          theme={args.theme}
-        >
-          <SubMenu
-            data={"More"}
-            itemView={"More"}
-            displayView={args.displayView}
-            displayPosition={args.displayPosition}
+      <div className="demo-wrapper">
+        <h1>Radial Menu Customizations</h1>
+        <p>Use Storybook controls to test all customization options.</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            ref={wrapperRef}
+            className="menu-wrapper"
+            style={{ width: 2 * args.outerRadius + 100, height: 2 * args.outerRadius + 100 }}
           >
-            <SubMenu
-              data={"More2"}
-              itemView={"More2"}
-              displayView={args.displayView}
-              displayPosition={args.displayPosition}
+            <Menu
+              animation={args.animation}
+              animationTimeout={args.animationTimeout}
+              animateSubMenuChange={args.animateSubMenuChange}
+              show={args.show}
+              outerRadius={args.outerRadius}
+              innerRadius={args.innerRadius}
+              centerX={args.outerRadius + 50}
+              centerY={args.outerRadius + 50}
+              theme={args.themeSelect === "none" ? undefined : args.themeSelect}
             >
-              <MenuItem data={"subsub 1"}>subsub 1</MenuItem>
-              <MenuItem data={"subsub 2"}>subsub 2</MenuItem>
-              <MenuItem data={"subsub 3"}>subsub 3</MenuItem>
-            </SubMenu>
-            <MenuItem data={"sub 1"}>sub 1</MenuItem>
-            <MenuItem data={"sub 2"}>sub 2</MenuItem>
-            <MenuItem data={"sub 3"}>sub 3</MenuItem>
-          </SubMenu>
-          <MenuItem data={"item 1"}>item 1</MenuItem>
-          <MenuItem data={"item 2"}>item 2</MenuItem>
-          <MenuItem data={"item 3"}>item 3</MenuItem>
-          <MenuItem data={"item 4"}>item 4</MenuItem>
-          <MenuItem data={"item 5"}>item 5</MenuItem>
-          <MenuItem data={"item 6"}>item 6</MenuItem>
-        </Menu>
+              <SubMenu
+                data={"More"}
+                itemView={"More"}
+                displayView={args.displayView}
+                displayPosition={args.displayPosition}
+              >
+                <SubMenu
+                  data={"More2"}
+                  itemView={"More2"}
+                  displayView={args.displayView}
+                  displayPosition={args.displayPosition}
+                >
+                  <MenuItem data={"subsub 1"}>subsub 1</MenuItem>
+                  <MenuItem data={"subsub 2"}>subsub 2</MenuItem>
+                  <MenuItem data={"subsub 3"}>subsub 3</MenuItem>
+                </SubMenu>
+                <MenuItem data={"sub 1"}>sub 1</MenuItem>
+                <MenuItem data={"sub 2"}>sub 2</MenuItem>
+                <MenuItem data={"sub 3"}>sub 3</MenuItem>
+              </SubMenu>
+              <MenuItem data={"item 1"}>item 1</MenuItem>
+              <MenuItem data={"item 2"}>item 2</MenuItem>
+              <MenuItem data={"item 3"}>item 3</MenuItem>
+              <MenuItem data={"item 4"}>item 4</MenuItem>
+              <MenuItem data={"item 5"}>item 5</MenuItem>
+              <MenuItem data={"item 6"}>item 6</MenuItem>
+            </Menu>
+          </div>
+        </div>
+        <pre>
+          {`.menu-wrapper {
+  --menu-bgColor: ${args.menuBgColor};
+  --separator-color: ${args.separatorColor};
+  --item-color: ${args.itemColor};
+  --activeItem-color: ${args.activeItemColor};
+  --activeItem-bgColor: ${args.activeItemBgColor};
+  --arrow-color: ${args.arrowColor};
+  --activeArrow-color: ${args.activeArrowColor};
+}`}
+        </pre>
+        <p>
+          <strong>Note:</strong> The above CSS variables are used to customize the menu. You can use different colors
+          for each menu item, separator, and arrow. You can also use the <code>theme</code> prop to set a predefined
+          theme.
+        </p>
+        <pre>
+          {`
+<Menu
+  animation={${JSON.stringify(args.animation)}}
+  animationTimeout={${args.animationTimeout}}
+  animateSubMenuChange={${args.animateSubMenuChange}}
+  show={${args.show}}
+  outerRadius={${args.outerRadius}}
+  innerRadius={${args.innerRadius}}
+  centerX={${args.outerRadius + 50}}
+  centerY={${args.outerRadius + 50}}${args.themeSelect === "none" ? "" : `\n  theme={"${args.themeSelect}"}`}
+>
+  <SubMenu data={"More"} itemView={"More"} displayView={"${args.displayView}"} displayPosition="${args.displayPosition}">
+    <SubMenu data={"More2"} itemView={"More2"} displayView={"${args.displayView}"} displayPosition="${args.displayPosition}">
+      // ... more menu items
+    </SubMenu>
+    // ... more menu items
+  </SubMenu>
+  // ... more menu items
+</Menu>`}
+        </pre>
       </div>
     );
   },
   argTypes: {
-    outerRadius: { table: { disable: true } },
-    innerRadius: { table: { disable: true } },
     centerX: { table: { disable: true } },
     centerY: { table: { disable: true } },
     animationTimeout: { control: { type: "number" } },
@@ -99,14 +145,19 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
       options: ["top", "bottom", "left", "right", "center"],
       control: { type: "select" },
     },
+    themeSelect: { control: { type: "inline-radio" }, options: ["light", "dark", "none"] },
+    theme: { table: { disable: true } },
   },
   args: {
     show: true,
-    displayPosition: "bottom",
-    displayView: "",
+    animation: [],
     animationTimeout: 300,
     animateSubMenuChange: true,
-    animation: [],
+    innerRadius: 75,
+    outerRadius: 150,
+    displayPosition: "bottom",
+    displayView: "",
+    themeSelect: "none",
     menuBgColor: "#fff",
     separatorColor: "rgba(0, 0, 0, 0.2)",
     itemColor: "#333",
