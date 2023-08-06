@@ -40,7 +40,7 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
       ) : (
         <circle cx={outerRadius} cy={outerRadius} r={innerRadius} className={clsx("base", { active })} />
       )}
-      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
+      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
         <div className={clsx("content", { active })}>
           {props.children ? (
             props.children

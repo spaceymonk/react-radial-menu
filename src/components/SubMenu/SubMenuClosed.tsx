@@ -46,7 +46,7 @@ export const SubMenuClosed = ({
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
         className={clsx("base", { active })}
       />
-      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
+      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
         <div className={clsx("content", { active })}>{itemView}</div>
       </foreignObject>
       <polyline

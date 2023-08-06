@@ -36,14 +36,13 @@ const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onIte
         event.preventDefault();
         event.stopPropagation();
         onItemClick?.(event, index, propsData);
-        setData((prev) => ({ ...prev, activeMenuId: MAIN_MENU_ID }));
       }}
     >
       <path
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
         className={clsx("base", { active })}
       />
-      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight} className="content-wrapper">
+      <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
         <div className={clsx("content", { active })}>{props.children}</div>
       </foreignObject>
     </g>

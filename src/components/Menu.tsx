@@ -7,7 +7,7 @@ import "./Menu.css";
 
 export const MAIN_MENU_ID = "0";
 
-const initialData = {
+const initialData: MenuContextData = {
   activeMenuId: "",
   deltaRadius: 0,
   innerRadius: 0,
