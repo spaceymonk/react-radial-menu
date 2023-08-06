@@ -30,7 +30,7 @@ Just wrap your menu items with `<Menu>` component and pass it to `<MenuProvider>
 
 ```jsx
 import React from "react";
-import { Menu, MenuItem, MenuProvider, SubMenu } from "@spaceymonk/react-radial-menu";
+import { Menu, MenuItem, SubMenu } from "@spaceymonk/react-radial-menu";
 
 function App() {
   const [show, setShow] = React.useState(false);
@@ -38,54 +38,75 @@ function App() {
 
   // You can also use separate handler for each item
   const handleItemClick = (event, index, data) => {
-    console.log(`${data} clicked`);
+    console.log(`[MenuItem] ${data} clicked`);
     setShow(false); // you should handle your menu visibility yourself
   };
   const handleSubMenuClick = (event, index, data) => {
-    console.log(`${data} clicked`);
+    console.log(`[SubMenu] ${data} clicked`);
   };
   const handleDisplayClick = (event, position) => {
-    console.log(`${position} clicked`);
+    console.log(`[Display] ${position} clicked`);
   };
 
   return (
     <div
+      // right click event
       onContextMenu={(e) => {
         e.preventDefault();
         setShow(true);
+        // if your div is not full screen, you should remove the offset
+        // via getBoundingClientRect().left and getBoundingClientRect().top
+        // check `src/stories/BasicControls.stories.tsx` for an example
         setPosition({ x: e.clientX, y: e.clientY });
       }}
       onClick={() => setShow(false)}
       style={{ width: "100vw", height: "100vh" }}
     >
-      <MenuProvider>
-        {/* add your animation classes via `className`. See `src/stories/MenuCustomization.stories.tsx` */}
-        <Menu centerX={position.x} centerY={position.y} innerRadius={75} outerRadius={150} show={show}>
-          {/* Populate your menu here */}
-          <MenuItem onItemClicked={handleItemClick} data="1. Item">1. Item</MenuItem>
+      <Menu
+        centerX={position.x}
+        centerY={position.y}
+        innerRadius={75}
+        outerRadius={150}
+        show={show}
+        animation={["fade", "scale"]}
+        animationTimeout={150}
+      >
+        {/* Populate your menu here */}
+        <MenuItem onItemClick={handleItemClick} data="1. Item">
+          1. Item
+        </MenuItem>
+        <SubMenu
+          onDisplayClick={handleDisplayClick}
+          onItemClick={handleSubMenuClick}
+          sectionView="2. Sub Menu"
+          data="2. Sub Menu"
+          displayPosition="bottom"
+        >
+          <MenuItem onItemClick={handleItemClick} data="2.1. Item">
+            2.1. Item
+          </MenuItem>
+          <MenuItem onItemClick={handleItemClick} data="2.2. Item">
+            2.2. Item
+          </MenuItem>
+          <MenuItem onItemClick={handleItemClick} data="2.3. Item">
+            2.3. Item
+          </MenuItem>
           <SubMenu
             onDisplayClick={handleDisplayClick}
-            onItemClicked={handleSubMenuClick}
-            sectionView="2. Sub Menu"
-            data="2. Sub Menu"
+            onItemClick={handleSubMenuClick}
+            sectionView="2.4. Sub Menu"
+            data="2.4. Sub Menu"
             displayPosition="bottom"
           >
-            <MenuItem onItemClicked={handleItemClick} data="2.1. Item">2.1. Item</MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data="2.2. Item">2.2. Item</MenuItem>
-            <MenuItem onItemClicked={handleItemClick} data="2.3. Item">2.3. Item</MenuItem>
-            <SubMenu
-              onDisplayClick={handleDisplayClick}
-              onItemClicked={handleSubMenuClick}
-              sectionView="2.4. Sub Menu"
-              data="2.4. Sub Menu"
-              displayPosition="bottom"
-            >
-              <MenuItem onItemClicked={handleItemClick} data="2.4.1. Item">2.4.1. Item</MenuItem>
-              <MenuItem onItemClicked={handleItemClick} data="2.4.2. Item">2.4.2. Item</MenuItem>
-            </SubMenu>
+            <MenuItem onItemClick={handleItemClick} data="2.4.1. Item">
+              2.4.1. Item
+            </MenuItem>
+            <MenuItem onItemClick={handleItemClick} data="2.4.2. Item">
+              2.4.2. Item
+            </MenuItem>
           </SubMenu>
-        </Menu>
-      </MenuProvider>
+        </SubMenu>
+      </Menu>
     </div>
   );
 }
