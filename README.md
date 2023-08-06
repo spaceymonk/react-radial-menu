@@ -26,7 +26,7 @@ npm install @spaceymonk/react-radial-menu
 
 ## Quick start
 
-Just wrap your menu items with `<Menu>` component and pass it to `<MenuProvider>`.
+Just wrap your menu items with `<Menu>` component.
 
 ```jsx
 import React from "react";
@@ -78,7 +78,7 @@ function App() {
         <SubMenu
           onDisplayClick={handleDisplayClick}
           onItemClick={handleSubMenuClick}
-          sectionView="2. Sub Menu"
+          itemView="2. Sub Menu"
           data="2. Sub Menu"
           displayPosition="bottom"
         >
@@ -94,7 +94,7 @@ function App() {
           <SubMenu
             onDisplayClick={handleDisplayClick}
             onItemClick={handleSubMenuClick}
-            sectionView="2.4. Sub Menu"
+            itemView="2.4. Sub Menu"
             data="2.4. Sub Menu"
             displayPosition="bottom"
           >
