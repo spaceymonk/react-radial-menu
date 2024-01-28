@@ -10,42 +10,42 @@
   --__reactRadialMenu__animation-delay: 300ms;
 }
 /* --------------------------------- Themes --------------------------------- */
-.light {
+.__rrm-light {
   --__reactRadialMenu__menu-bgColor: #fff;
   --__reactRadialMenu__separator-color: rgba(0, 0, 0, 0.2);
   --__reactRadialMenu__item-color: #333;
 }
-.dark {
+.__rrm-dark {
   --__reactRadialMenu__menu-bgColor: rgba(40, 40, 40, 0.98);
   --__reactRadialMenu__separator-color: #4c4c4c;
   --__reactRadialMenu__item-color: #fff;
 }
 /* ------------------------------- Animations --------------------------------*/
-.menu.closing.fade,
-.menu.opening.fade {
+.__rrm-menu.__rrm-closing.__rrm-fade,
+.__rrm-menu.__rrm-opening.__rrm-fade {
   opacity: 0;
 }
-.menu.opened.fade {
+.__rrm-menu.__rrm-opened.__rrm-fade {
   opacity: 1;
 }
 
-.menu.closing.scale,
-.menu.opening.scale {
+.__rrm-menu.__rrm-closing.__rrm-scale,
+.__rrm-menu.__rrm-opening.__rrm-scale {
   scale: 0;
 }
-.menu.opened.scale {
+.__rrm-menu.__rrm-opened.__rrm-scale {
   scale: 1;
 }
 
-.menu.closing.rotate,
-.menu.opening.rotate {
+.__rrm-menu.__rrm-closing.__rrm-rotate,
+.__rrm-menu.__rrm-opening.__rrm-rotate {
   rotate: -45deg;
 }
-.menu.opened.rotate {
+.__rrm-menu.__rrm-opened.__rrm-rotate {
   rotate: 0deg;
 }
 /* ---------------------------------- Menu ---------------------------------- */
-.menu {
+.__rrm-menu {
   position: absolute;
   z-index: var(--__reactRadialMenu__zIndex);
   transition: all var(--__reactRadialMenu__animation-delay) ease;
@@ -53,20 +53,20 @@
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
 }
-.menu g {
+.__rrm-menu g {
   cursor: pointer;
 }
 /* ---------------------------------- Base ---------------------------------- */
-.base {
+.__rrm-base {
   transition: all var(--__reactRadialMenu__animation-delay) ease;
   fill: var(--__reactRadialMenu__menu-bgColor);
   stroke: var(--__reactRadialMenu__separator-color);
 }
-.base.active {
+.__rrm-base.__rrm-active {
   fill: var(--__reactRadialMenu__activeItem-bgColor);
 }
 /* --------------------------------- Content -------------------------------- */
-.content {
+.__rrm-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,28 +78,28 @@
   width: 100%;
   height: 100%;
 }
-.content.active {
+.__rrm-content.__rrm-active {
   color: var(--__reactRadialMenu__activeItem-color);
 }
 /* ---------------------------------- Arrow --------------------------------- */
-.arrow {
+.__rrm-arrow {
   stroke: var(--__reactRadialMenu__arrow-color);
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2px;
 }
-.arrow.active {
+.__rrm-arrow.__rrm-active {
   stroke: var(--__reactRadialMenu__activeArrow-color);
 }
 /* --------------------------------- Return --------------------------------- */
-.return {
+.__rrm-return {
   stroke: var(--__reactRadialMenu__arrow-color);
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 4px;
 }
-.return.active {
+.__rrm-return.__rrm-active {
   stroke: var(--__reactRadialMenu__activeArrow-color);
 }

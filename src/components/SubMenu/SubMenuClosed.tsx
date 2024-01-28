@@ -1,8 +1,7 @@
-import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "../MenuContext";
 import { SubMenuClosedProps } from "../types";
-import { getArrowPoints, getObjectDimensions, getRingSectionPath } from "../util";
+import { cx, getArrowPoints, getObjectDimensions, getRingSectionPath } from "../util";
 
 export const SubMenuClosed = ({
   __myMenuId,
@@ -44,14 +43,14 @@ export const SubMenuClosed = ({
     >
       <path
         d={getRingSectionPath(index * angleStep, (index + 1) * angleStep, innerRadius, outerRadius)}
-        className={clsx("base", { active })}
+        className={cx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
-        <div className={clsx("content", { active })}>{itemView}</div>
+        <div className={cx("content", { active })}>{itemView}</div>
       </foreignObject>
       <polyline
         points={getArrowPoints(index * angleStep, (index + 1) * angleStep, outerRadius)}
-        className={clsx("arrow", { active })}
+        className={cx("arrow", { active })}
       />
     </g>
   );

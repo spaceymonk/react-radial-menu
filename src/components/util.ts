@@ -1,3 +1,13 @@
+import clsx from "clsx";
+
+export function cx(...classNames: any) {
+  // append prefix
+  return clsx(...classNames)
+    .split(" ")
+    .map((className) => `__rrm-${className}`)
+    .join(" ");
+}
+
 export function getRingSectionPath(
   startAngle: number,
   endAngle: number,

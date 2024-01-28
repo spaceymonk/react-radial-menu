@@ -1,8 +1,7 @@
-import clsx from "clsx";
 import React from "react";
 import { MenuContext, MenuContextType } from "./MenuContext";
 import { MenuDisplayProps } from "./types";
-import { calculatePositions } from "./util";
+import { calculatePositions, cx } from "./util";
 
 const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
   const { data } = React.useContext(MenuContext) as MenuContextType;
@@ -35,18 +34,18 @@ const MenuDisplay = ({ position, ...props }: MenuDisplayProps) => {
                 ${Math.cos(endAngle) * innerRadius + outerRadius}
                 ${Math.sin(endAngle) * innerRadius + outerRadius}
               Z`}
-          className={clsx("base", { active })}
+          className={cx("base", { active })}
         />
       ) : (
-        <circle cx={outerRadius} cy={outerRadius} r={innerRadius} className={clsx("base", { active })} />
+        <circle cx={outerRadius} cy={outerRadius} r={innerRadius} className={cx("base", { active })} />
       )}
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
-        <div className={clsx("content", { active })}>
+        <div className={cx("content", { active })}>
           {props.children ? (
             props.children
           ) : (
             <svg
-              className={clsx("return", { active })}
+              className={cx("return", { active })}
               width={`${objectWidth * 0.5}px`}
               height={`${objectHeight * 0.5}px`}
               viewBox="0 0 48 48"
