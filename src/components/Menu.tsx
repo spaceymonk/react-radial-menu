@@ -2,6 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import { MenuContext } from "./MenuContext";
 import { MenuContextData, MenuProps } from "./types";
+import { cx } from "./util";
 
 import "./Menu.css";
 
@@ -99,7 +100,7 @@ const Menu = ({
           left: `${centerX - outerRadius}px`,
           top: `${centerY - outerRadius}px`,
         }}
-        className={clsx("menu", transition, props.className, animation, theme)}
+        className={clsx(props.className, cx("menu", transition, animation, theme))}
       >
         {React.Children.map(props.children, (child, index) => {
           if (React.isValidElement(child)) {
