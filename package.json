@@ -1,6 +1,6 @@
 {
   "name": "@spaceymonk/react-radial-menu",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "React radial menu with sub menu support, animations and themes.",
   "repository": {
     "type": "git",

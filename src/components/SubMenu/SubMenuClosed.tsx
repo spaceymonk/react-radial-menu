@@ -26,6 +26,7 @@ export const SubMenuClosed = ({
 
   return (
     <g
+      {...props}
       onMouseEnter={(e) => {
         props.onMouseEnter?.(e);
         setActive(true);
