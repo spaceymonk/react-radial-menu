@@ -28,13 +28,13 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
     const wrapperRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
       if (!wrapperRef.current) return;
-      wrapperRef.current.style.setProperty("--menu-bgColor", args.menuBgColor);
-      wrapperRef.current.style.setProperty("--separator-color", args.separatorColor);
-      wrapperRef.current.style.setProperty("--item-color", args.itemColor);
-      wrapperRef.current.style.setProperty("--activeItem-color", args.activeItemColor);
-      wrapperRef.current.style.setProperty("--activeItem-bgColor", args.activeItemBgColor);
-      wrapperRef.current.style.setProperty("--arrow-color", args.arrowColor);
-      wrapperRef.current.style.setProperty("--activeArrow-color", args.activeArrowColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__menu-bgColor", args.menuBgColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__separator-color", args.separatorColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__item-color", args.itemColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__activeItem-color", args.activeItemColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__activeItem-bgColor", args.activeItemBgColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__arrow-color", args.arrowColor);
+      wrapperRef.current.style.setProperty("--__reactRadialMenu__activeArrow-color", args.activeArrowColor);
     }, [
       args.menuBgColor,
       args.separatorColor,
@@ -97,13 +97,13 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
         </div>
         <pre>
           {`.menu-wrapper {
-  --menu-bgColor: ${args.menuBgColor};
-  --separator-color: ${args.separatorColor};
-  --item-color: ${args.itemColor};
-  --activeItem-color: ${args.activeItemColor};
-  --activeItem-bgColor: ${args.activeItemBgColor};
-  --arrow-color: ${args.arrowColor};
-  --activeArrow-color: ${args.activeArrowColor};
+  --__reactRadialMenu__menu-bgColor: ${args.menuBgColor};
+  --__reactRadialMenu__separator-color: ${args.separatorColor};
+  --__reactRadialMenu__item-color: ${args.itemColor};
+  --__reactRadialMenu__activeItem-color: ${args.activeItemColor};
+  --__reactRadialMenu__activeItem-bgColor: ${args.activeItemBgColor};
+  --__reactRadialMenu__arrow-color: ${args.arrowColor};
+  --__reactRadialMenu__activeArrow-color: ${args.activeArrowColor};
 }`}
         </pre>
         <p>

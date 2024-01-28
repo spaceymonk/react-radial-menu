@@ -60,7 +60,7 @@ const Menu = ({
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
   const handleTransition = React.useCallback(() => {
-    document.documentElement.style.setProperty("--animation-delay", `${animationTimeout}ms`);
+    document.documentElement.style.setProperty("--__reactRadialMenu__animation-delay", `${animationTimeout}ms`);
     if (show) {
       setTransition("opening");
       timeoutRef.current = setTimeout(() => {

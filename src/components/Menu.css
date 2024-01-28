@@ -1,24 +1,24 @@
 :root {
-  --menu-bgColor: #fff;
-  --separator-color: rgba(0, 0, 0, 0.2);
-  --item-color: #333;
-  --zIndex: 666;
-  --activeItem-color: #fff;
-  --activeItem-bgColor: #3498db;
-  --arrow-color: #6f6e77;
-  --activeArrow-color: #fff;
-  --animation-delay: 300ms;
+  --__reactRadialMenu__menu-bgColor: #fff;
+  --__reactRadialMenu__separator-color: rgba(0, 0, 0, 0.2);
+  --__reactRadialMenu__item-color: #333;
+  --__reactRadialMenu__zIndex: 666;
+  --__reactRadialMenu__activeItem-color: #fff;
+  --__reactRadialMenu__activeItem-bgColor: #3498db;
+  --__reactRadialMenu__arrow-color: #6f6e77;
+  --__reactRadialMenu__activeArrow-color: #fff;
+  --__reactRadialMenu__animation-delay: 300ms;
 }
 /* --------------------------------- Themes --------------------------------- */
 .light {
-  --menu-bgColor: #fff;
-  --separator-color: rgba(0, 0, 0, 0.2);
-  --item-color: #333;
+  --__reactRadialMenu__menu-bgColor: #fff;
+  --__reactRadialMenu__separator-color: rgba(0, 0, 0, 0.2);
+  --__reactRadialMenu__item-color: #333;
 }
 .dark {
-  --menu-bgColor: rgba(40, 40, 40, 0.98);
-  --separator-color: #4c4c4c;
-  --item-color: #fff;
+  --__reactRadialMenu__menu-bgColor: rgba(40, 40, 40, 0.98);
+  --__reactRadialMenu__separator-color: #4c4c4c;
+  --__reactRadialMenu__item-color: #fff;
 }
 /* ------------------------------- Animations --------------------------------*/
 .menu.closing.fade,
@@ -47,8 +47,8 @@
 /* ---------------------------------- Menu ---------------------------------- */
 .menu {
   position: absolute;
-  z-index: var(--zIndex);
-  transition: all var(--animation-delay) ease;
+  z-index: var(--__reactRadialMenu__zIndex);
+  transition: all var(--__reactRadialMenu__animation-delay) ease;
   transform-origin: center;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
@@ -58,12 +58,12 @@
 }
 /* ---------------------------------- Base ---------------------------------- */
 .base {
-  transition: all var(--animation-delay) ease;
-  fill: var(--menu-bgColor);
-  stroke: var(--separator-color);
+  transition: all var(--__reactRadialMenu__animation-delay) ease;
+  fill: var(--__reactRadialMenu__menu-bgColor);
+  stroke: var(--__reactRadialMenu__separator-color);
 }
 .base.active {
-  fill: var(--activeItem-bgColor);
+  fill: var(--__reactRadialMenu__activeItem-bgColor);
 }
 /* --------------------------------- Content -------------------------------- */
 .content {
@@ -73,33 +73,33 @@
   text-align: center;
   flex-direction: column;
   pointer-events: none;
-  color: var(--item-color);
+  color: var(--__reactRadialMenu__item-color);
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
 .content.active {
-  color: var(--activeItem-color);
+  color: var(--__reactRadialMenu__activeItem-color);
 }
 /* ---------------------------------- Arrow --------------------------------- */
 .arrow {
-  stroke: var(--arrow-color);
+  stroke: var(--__reactRadialMenu__arrow-color);
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2px;
 }
 .arrow.active {
-  stroke: var(--activeArrow-color);
+  stroke: var(--__reactRadialMenu__activeArrow-color);
 }
 /* --------------------------------- Return --------------------------------- */
 .return {
-  stroke: var(--arrow-color);
+  stroke: var(--__reactRadialMenu__arrow-color);
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 4px;
 }
 .return.active {
-  stroke: var(--activeArrow-color);
+  stroke: var(--__reactRadialMenu__activeArrow-color);
 }
