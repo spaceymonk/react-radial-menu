@@ -11,7 +11,7 @@ export const SubMenuOpened = ({
   displayView,
   onDisplayClick,
 }: SubMenuOpenedProps) => {
-  const { setData } = React.useContext(MenuContext) as MenuContextType;
+  const { changeMenu } = React.useContext(MenuContext) as MenuContextType;
   const myMenuId = __myMenuId as string;
   const parentMenuId = __parentMenuId as string;
 
@@ -38,7 +38,7 @@ export const SubMenuOpened = ({
         position={displayPosition}
         onClick={(event, position) => {
           onDisplayClick?.(event, position);
-          setData((prev) => ({ ...prev, activeMenuId: parentMenuId }));
+          changeMenu(parentMenuId);
         }}
       >
         {displayView}

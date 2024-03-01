@@ -3,7 +3,7 @@ import { MenuContextData } from "./types";
 
 export interface MenuContextType {
   data: MenuContextData;
-  setData: React.Dispatch<React.SetStateAction<MenuContextData>>;
+  changeMenu: (menuId: string) => void;
 }
 
 export const MenuContext = React.createContext<MenuContextType | null>(null);

@@ -12,7 +12,7 @@ export const SubMenuClosed = ({
   onItemClick,
   ...props
 }: SubMenuClosedProps) => {
-  const { data, setData } = React.useContext(MenuContext) as MenuContextType;
+  const { data, changeMenu } = React.useContext(MenuContext) as MenuContextType;
   const { innerRadius, outerRadius, middleRadius, deltaRadius } = data;
   const [active, setActive] = React.useState(false);
   const angleStep = __angleStep as number;
@@ -39,7 +39,7 @@ export const SubMenuClosed = ({
         event.preventDefault();
         event.stopPropagation();
         onItemClick?.(event, index, propsData);
-        setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
+        changeMenu(myMenuId);
       }}
     >
       <path
@@ -69,7 +69,7 @@ export const SubMenuClosed = ({
           event.preventDefault();
           event.stopPropagation();
           onItemClick?.(event, index, propsData);
-          setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
+          changeMenu(myMenuId);
         }}
         x={objectX}
         y={objectY}

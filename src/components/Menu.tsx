@@ -9,7 +9,7 @@ import "./Menu.css";
 export const MAIN_MENU_ID = "0";
 
 const initialData: MenuContextData = {
-  activeMenuId: "",
+  activeMenuId: MAIN_MENU_ID,
   deltaRadius: 0,
   innerRadius: 0,
   menuHeight: 0,
@@ -62,35 +62,36 @@ const Menu = ({
   }, [innerRadius, outerRadius, show, drawBackground]);
 
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
-  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
   const handleTransition = React.useCallback(() => {
     document.documentElement.style.setProperty("--__reactRadialMenu__animation-delay", `${animationTimeout}ms`);
     if (show) {
       setTransition("opening");
-      timeoutRef.current = setTimeout(() => {
-        setTransition("opened");
-        clearTimeout(timeoutRef.current);
-      }, animationTimeout);
+      setTimeout(() => setTransition("opened"), animationTimeout);
     } else {
       setTransition("closing");
-      timeoutRef.current = setTimeout(() => {
-        setTransition("closed");
-        clearTimeout(timeoutRef.current);
-      }, animationTimeout);
+      setTimeout(() => setTransition("closed"), animationTimeout);
     }
   }, [show, animationTimeout]);
+  const changeMenu = React.useCallback(
+    (menuId: string) => {
+      if (animateSubMenuChange) {
+        handleTransition();
+        setTimeout(() => setData((prev) => ({ ...prev, activeMenuId: menuId })), animationTimeout);
+      } else {
+        setData((prev) => ({ ...prev, activeMenuId: menuId }));
+      }
+    },
+    [handleTransition, animateSubMenuChange]
+  );
   React.useEffect(() => {
     handleTransition();
-  }, [show]);
-  React.useEffect(() => {
-    if (animateSubMenuChange) handleTransition();
-  }, [data.activeMenuId, animateSubMenuChange]);
+  }, [show, handleTransition]);
 
   if (transition === "closed") {
     return <></>;
   }
   return (
-    <MenuContext.Provider value={{ data, setData }}>
+    <MenuContext.Provider value={{ data, changeMenu }}>
       <svg
         {...props}
         width={menuWidth}
