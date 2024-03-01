@@ -49,6 +49,22 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
       <div className="demo-wrapper">
         <h1>Radial Menu Customizations</h1>
         <p>Use Storybook controls to test all customization options.</p>
+        <div>
+          <strong>NEW!</strong> You can toggle background of the menu. Just click <code>drawBackground</code> in{" "}
+          <i>Controls</i> section to see!
+          <p>After toggling set these for more beautiful menu:</p>
+          <ul>
+            <li>
+              <code>innerRadius</code> to <code>40</code>
+            </li>
+            <li>
+              <code>outerRadius</code> to <code>150</code>
+            </li>
+            <li>
+              <code>displayPosition</code> to <code>center</code>
+            </li>
+          </ul>
+        </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div
             ref={wrapperRef}
@@ -65,6 +81,7 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
               centerX={args.outerRadius + 50}
               centerY={args.outerRadius + 50}
               theme={args.themeSelect === "none" ? undefined : args.themeSelect}
+              drawBackground={args.drawBackground}
             >
               <SubMenu
                 data={"More"}
@@ -123,8 +140,12 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
   centerX={${args.outerRadius + 50}}
   centerY={${args.outerRadius + 50}}${args.themeSelect === "none" ? "" : `\n  theme={"${args.themeSelect}"}`}
 >
-  <SubMenu data={"More"} itemView={"More"} displayView={"${args.displayView}"} displayPosition="${args.displayPosition}">
-    <SubMenu data={"More2"} itemView={"More2"} displayView={"${args.displayView}"} displayPosition="${args.displayPosition}">
+  <SubMenu data={"More"} itemView={"More"} displayView={"${args.displayView}"} displayPosition="${
+            args.displayPosition
+          }">
+    <SubMenu data={"More2"} itemView={"More2"} displayView={"${args.displayView}"} displayPosition="${
+            args.displayPosition
+          }">
       // ... more menu items
     </SubMenu>
     // ... more menu items
@@ -150,6 +171,7 @@ export const RadialMenuCustomizations: StoryObj<RadialMenuCustomizationsArgs> = 
   },
   args: {
     show: true,
+    drawBackground: true,
     animation: [],
     animationTimeout: 300,
     animateSubMenuChange: true,

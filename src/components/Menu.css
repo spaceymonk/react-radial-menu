@@ -103,3 +103,22 @@
 .__rrm-return.__rrm-active {
   stroke: var(--__reactRadialMenu__activeArrow-color);
 }
+/* --------------------------------- No Bg --------------------------------- */
+.__rrm-no-bg > g > foreignObject {
+  border: 1px solid var(--__reactRadialMenu__separator-color);
+  border-radius: 50%;
+  background-color: var(--__reactRadialMenu__menu-bgColor);
+}
+.__rrm-no-bg > g > foreignObject:has(.__rrm-active) {
+  background-color: var(--__reactRadialMenu__activeItem-bgColor);
+}
+.__rrm-no-bg .__rrm-arrow {
+  stroke: var(--__reactRadialMenu__arrow-color);
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+}
+.__rrm-no-bg .__rrm-arrow.__rrm-active {
+  stroke: var(--__reactRadialMenu__arrow-color);
+}

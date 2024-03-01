@@ -8,6 +8,7 @@ export interface MenuContextData {
   menuWidth: number;
   menuHeight: number;
   activeMenuId: string;
+  drawBackground: boolean;
 }
 
 export type AnimationType = "fade" | "rotate" | "scale";
@@ -23,6 +24,7 @@ export interface MenuProps extends React.SVGProps<SVGSVGElement> {
   animateSubMenuChange?: boolean;
   animation?: AnimationType[] | AnimationType;
   theme?: "light" | "dark";
+  drawBackground?: boolean;
 }
 
 export interface MenuItemProps extends Omit<React.SVGProps<SVGGElement>, "onClick"> {

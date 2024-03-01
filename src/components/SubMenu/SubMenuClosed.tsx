@@ -24,7 +24,7 @@ export const SubMenuClosed = ({
     [deltaRadius, angleStep, middleRadius, index, outerRadius]
   );
 
-  return (
+  return data.drawBackground ? (
     <g
       {...props}
       onMouseEnter={(e) => {
@@ -47,6 +47,35 @@ export const SubMenuClosed = ({
         className={cx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
+        <div className={cx("content", { active })}>{itemView}</div>
+      </foreignObject>
+      <polyline
+        points={getArrowPoints(index * angleStep, (index + 1) * angleStep, outerRadius)}
+        className={cx("arrow", { active })}
+      />
+    </g>
+  ) : (
+    <g {...props}>
+      <foreignObject
+        onMouseEnter={(e) => {
+          props.onMouseEnter?.(e);
+          setActive(true);
+        }}
+        onMouseLeave={(e) => {
+          props.onMouseLeave?.(e);
+          setActive(false);
+        }}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onItemClick?.(event, index, propsData);
+          setData((prev) => ({ ...prev, activeMenuId: myMenuId }));
+        }}
+        x={objectX}
+        y={objectY}
+        width={objectWidth}
+        height={objectHeight}
+      >
         <div className={cx("content", { active })}>{itemView}</div>
       </foreignObject>
       <polyline

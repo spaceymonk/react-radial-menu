@@ -4,7 +4,7 @@ import { MenuItemProps } from "./types";
 import { cx, getObjectDimensions, getRingSectionPath } from "./util";
 
 const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onItemClick, ...props }: MenuItemProps) => {
-  const { data, setData } = React.useContext(MenuContext) as MenuContextType;
+  const { data } = React.useContext(MenuContext) as MenuContextType;
   const { innerRadius, outerRadius, middleRadius, deltaRadius, activeMenuId } = data;
   const [active, setActive] = React.useState(false);
   const angleStep = __angleStep as number;
@@ -19,7 +19,7 @@ const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onIte
   if (parentMenuId !== activeMenuId) {
     return <></>;
   }
-  return (
+  return data.drawBackground ? (
     <g
       {...props}
       onMouseEnter={(e) => {
@@ -41,6 +41,30 @@ const MenuItem = ({ __angleStep, __index, __parentMenuId, data: propsData, onIte
         className={cx("base", { active })}
       />
       <foreignObject x={objectX} y={objectY} width={objectWidth} height={objectHeight}>
+        <div className={cx("content", { active })}>{props.children}</div>
+      </foreignObject>
+    </g>
+  ) : (
+    <g {...props}>
+      <foreignObject
+        x={objectX}
+        y={objectY}
+        width={objectWidth}
+        height={objectHeight}
+        onMouseEnter={(e) => {
+          props.onMouseEnter?.(e);
+          setActive(true);
+        }}
+        onMouseLeave={(e) => {
+          props.onMouseLeave?.(e);
+          setActive(false);
+        }}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onItemClick?.(event, index, propsData);
+        }}
+      >
         <div className={cx("content", { active })}>{props.children}</div>
       </foreignObject>
     </g>

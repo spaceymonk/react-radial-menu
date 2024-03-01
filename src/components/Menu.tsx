@@ -16,6 +16,7 @@ const initialData: MenuContextData = {
   menuWidth: 0,
   middleRadius: 0,
   outerRadius: 0,
+  drawBackground: true,
 };
 
 const Menu = ({
@@ -28,6 +29,7 @@ const Menu = ({
   animateSubMenuChange,
   animation,
   theme,
+  drawBackground,
   ...props
 }: MenuProps) => {
   const [data, setData] = React.useState<MenuContextData>(initialData);
@@ -55,8 +57,9 @@ const Menu = ({
       menuWidth,
       menuHeight,
       activeMenuId: show ? myMenuId : prev.activeMenuId,
+      drawBackground: drawBackground ?? true,
     }));
-  }, [innerRadius, outerRadius, show]);
+  }, [innerRadius, outerRadius, show, drawBackground]);
 
   const [transition, setTransition] = React.useState<"closed" | "closing" | "opened" | "opening">("closed");
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
@@ -100,7 +103,7 @@ const Menu = ({
           left: `${centerX - outerRadius}px`,
           top: `${centerY - outerRadius}px`,
         }}
-        className={clsx(props.className, cx("menu", transition, animation, theme))}
+        className={clsx(props.className, cx("menu", transition, animation, theme, !data.drawBackground && "no-bg"))}
       >
         {React.Children.map(props.children, (child, index) => {
           if (React.isValidElement(child)) {
