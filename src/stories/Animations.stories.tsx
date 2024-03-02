@@ -149,6 +149,7 @@ return (
     outerRadius: { table: { disable: true } },
     show: { table: { disable: true } },
     theme: { table: { disable: true } },
+    drawBackground: { table: { disable: true } },
   },
   args: {
     innerRadius: 50,

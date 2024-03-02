@@ -34,6 +34,9 @@ const Menu = ({
 }: MenuProps) => {
   const [data, setData] = React.useState<MenuContextData>(initialData);
 
+  if (innerRadius >= outerRadius) {
+    throw new Error("RadialMenu's innerRadius must be less than outerRadius");
+  }
   const numOfChildren = React.Children.count(props.children);
   if (numOfChildren < 2) {
     throw new Error("RadialMenu must have at least 2 children");

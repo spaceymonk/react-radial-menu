@@ -8,6 +8,7 @@ it for context menu or as a menu for your mobile app.
 - Nested sub menu support with back button
 - Fully customizable with CSS variables (even background drawings!)
 - Built-in animations (fade, scale, rotate) with any combination
+- Disk or bubble display (see the GIF below)
 - Further customization with CSS classes
 - Dark mode support (thanks to CSS variables)
 - Written in TypeScript
@@ -70,6 +71,7 @@ function App() {
         show={show}
         animation={["fade", "scale"]}
         animationTimeout={150}
+        drawBackground
       >
         {/* Populate your menu here */}
         <MenuItem onItemClick={handleItemClick} data="1. Item">

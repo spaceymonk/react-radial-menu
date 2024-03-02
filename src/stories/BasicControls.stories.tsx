@@ -43,9 +43,9 @@ export const BasicControls: StoryObj<RadialMenuArgs> = {
               {`<div className="menu-wrapper" style={{ width: ${2 * args.outerRadius}, height: ${
                 2 * args.outerRadius
               } }}>
-  <Menu show centerX={${args.outerRadius}} centerY={${args.outerRadius}} outerRadius={${
-                args.outerRadius
-              }} innerRadius={${args.innerRadius}}>
+  <Menu centerX={${args.outerRadius}} centerY={${args.outerRadius}} outerRadius={${args.outerRadius}} innerRadius={${
+                args.innerRadius
+              }} drawBackground={${args.drawBackground}}>
     ${Array.from({ length: args.childrenCount }, (_, i) => `<MenuItem>${i}</MenuItem>`).join("\n    ")}
   </Menu>
 </div>`}
@@ -64,6 +64,7 @@ export const BasicControls: StoryObj<RadialMenuArgs> = {
               outerRadius={args.outerRadius}
               centerX={args.outerRadius}
               centerY={args.outerRadius}
+              drawBackground={args.drawBackground}
             >
               {Array.from({ length: args.childrenCount }, (_, i) => (
                 <MenuItem key={i}>{i}</MenuItem>
@@ -160,10 +161,11 @@ return (
   >
     <Menu
       show={show}
-      innerRadius={args.innerRadius}
-      outerRadius={args.outerRadius}
-      centerX={args.outerRadius}
-      centerY={args.outerRadius}
+      innerRadius={${args.innerRadius}}
+      outerRadius={${args.outerRadius}}
+      centerX={${args.outerRadius}}
+      centerY={${args.outerRadius}}
+      drawBackground={${args.drawBackground}}
     >
       <MenuItem onItemClick={() => setShow(false)}>Click to close menu</MenuItem>
       <MenuItem onItemClick={() => {}}>but not here</MenuItem>
@@ -184,6 +186,7 @@ return (
                 outerRadius={args.outerRadius}
                 centerX={args.outerRadius}
                 centerY={args.outerRadius}
+                drawBackground={args.drawBackground}
               >
                 <MenuItem onItemClick={() => setShow(false)}>Click to close menu</MenuItem>
                 <MenuItem onItemClick={() => {}}>but not here</MenuItem>
@@ -217,5 +220,6 @@ return (
     outerRadius: 150,
     innerRadius: 75,
     childrenCount: 5,
+    drawBackground: true,
   },
 };

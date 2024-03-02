@@ -244,9 +244,9 @@ return (
         onItemClick={handleSubMenuClick}
         onDisplayClick={handleDisplayClick}
         data={"submenu-data"}
-        displayPosition="${args.displayPosition}"
-        itemView="More"
-        displayView="${args.displayView}"
+        displayPosition={"${args.displayPosition}"}
+        itemView={"More"}
+        displayView={"${args.displayView}"}
       >
         <MenuItem data={"subItem-4"} onItemClick={handleItemClick}>4<MenuItem>
         <MenuItem data={"subItem-5"} onItemClick={handleItemClick}>5<MenuItem>
@@ -271,6 +271,7 @@ return (
     show: { table: { disable: true } },
     theme: { table: { disable: true } },
     displayPosition: { control: { type: "select"}, options: ["top", "bottom", "left", "right", "center"]  },
+    drawBackground: { table: { disable: true } },
   },
   args: {
     displayPosition: "bottom",
