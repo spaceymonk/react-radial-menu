@@ -1,6 +1,6 @@
 {
   "name": "@spaceymonk/react-radial-menu",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "React radial menu with sub menu support, animations and themes.",
   "repository": {
     "type": "git",
@@ -62,7 +62,8 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <=18.2.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
