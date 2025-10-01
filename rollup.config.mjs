@@ -6,7 +6,8 @@ import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
-import packageJson from "./package.json" assert { type: "json" };
+import { createRequire } from "node:module"; 
+const packageJson = createRequire(import.meta.url)("./package.json");
 
 export default [
   {
